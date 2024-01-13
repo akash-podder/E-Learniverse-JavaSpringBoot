@@ -1,0 +1,59 @@
+plugins {
+	id 'java'
+	id 'war'
+	id 'org.springframework.boot' version '2.5.5'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+group = 'com.akash'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '12'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	//Lombok Dependency
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	//Postgres Dependency
+	runtimeOnly 'org.postgresql:postgresql'
+
+
+	//Retrofit Dependency
+	implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+	implementation 'com.squareup.retrofit2:converter-jackson:2.4.0'
+	implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+	implementation 'com.squareup.retrofit2:converter-scalars:2.4.0'
+	implementation 'com.squareup.okhttp3:logging-interceptor' //for Logging okHttp Request
+
+	implementation 'com.google.guava:guava:29.0-jre'
+
+	//Firebase FCM Dependency
+	implementation 'com.google.firebase:firebase-admin:9.1.1'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
