@@ -12,7 +12,8 @@ public class MainViewController {
 
     @GetMapping("/")
     public String home(Model model) {
-        return "layout/home";
+        return "index";
+//        return "layout/home";
     }
 
     @GetMapping("/create-player")
