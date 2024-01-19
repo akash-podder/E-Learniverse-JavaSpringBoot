@@ -9,7 +9,7 @@ group = 'com.akash'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '12'
+	sourceCompatibility = '11'
 }
 
 configurations {
@@ -23,35 +23,52 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
 
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
+}
 
-	//Lombok Dependency
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'java-library'
+	apply plugin: 'war'
+	apply plugin: 'idea'
 
-	//Postgres Dependency
-	runtimeOnly 'org.postgresql:postgresql'
+	compileJava {
+		sourceCompatibility = 11
+		targetCompatibility = 11
+	}
 
+	repositories {
+		mavenLocal()
+		mavenCentral()
+		jcenter()
+//		maven {
+//			url 'http://10.9.0.31:8099/repository/maven-releases/'
+//		}
+	}
 
-	//Retrofit Dependency
-	implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-	implementation 'com.squareup.retrofit2:converter-jackson:2.4.0'
-	implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-	implementation 'com.squareup.retrofit2:converter-scalars:2.4.0'
-	implementation 'com.squareup.okhttp3:logging-interceptor' //for Logging okHttp Request
+	ext {
+		set('springBootVersion', "2.7.12")
+	}
 
-	implementation 'com.google.guava:guava:29.0-jre'
+	configurations {
+		compileOnly {
+			extendsFrom annotationProcessor
+		}
+	}
 
-	//Firebase FCM Dependency
-	implementation 'com.google.firebase:firebase-admin:9.1.1'
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter'
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'
+		annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+		}
+	}
 }
 
 tasks.named('test') {
