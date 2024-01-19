@@ -25,6 +25,7 @@ public class MySecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .authorizeRequests()
                 .antMatchers("/", "/api/home").permitAll() // Allow access to "/" and "/api/home"
+                .antMatchers("/**/*.js", "/**/*.css").permitAll()  //TODO: for CSS/JS MUST Need to add it in Spring Security, otherwise it will be blocked & No css/js file will be loaded
                 .anyRequest().authenticated()
                 .and()
                 .formLogin() // Use the default "/login" behavior
