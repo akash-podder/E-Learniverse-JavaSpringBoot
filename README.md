@@ -1,3 +1,5 @@
-### E-Learniverse Java Spring template project
+# E-Learniverse Java Spring Boot Project
+A Java Spring Boot Backend application for E-Learniverse. This is a Self-Learning Project to document all my Personal leanrings in Java Spring Boot Framework.
 
-Improvements can be proposed in the [original project](https://gitlab.com/gitlab-org/project-templates/spring).
+## Installation guide
+Please follow standard **Java Spring** installation guide.
