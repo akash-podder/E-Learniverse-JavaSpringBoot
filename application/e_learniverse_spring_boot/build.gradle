@@ -1,14 +1,17 @@
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 	//Thymeleaf Dependency
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+
+	//Spring Security Dependency
+//	implementation 'org.springframework.boot:spring-boot-starter-security'
+//	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+//	testImplementation 'org.springframework.security:spring-security-test'
 
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
 
 	//Lombok Dependency
 	compileOnly 'org.projectlombok:lombok'
@@ -16,7 +19,6 @@ dependencies {
 
 	//Postgres Dependency
 	runtimeOnly 'org.postgresql:postgresql'
-
 
 	//Retrofit Dependency
 	implementation 'com.squareup.retrofit2:retrofit:2.4.0'
