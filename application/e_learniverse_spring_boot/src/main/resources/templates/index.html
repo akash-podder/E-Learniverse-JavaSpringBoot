@@ -48,7 +48,7 @@
             <div class="carousel-inner" role="listbox">
 
                 <!-- Slide 1 -->
-                <div class="carousel-item active" th:style="background-image: url([[ @{ '/img/slide/slide-1.jpg' } ]])">
+                <div class="carousel-item active" th:style="'background-image: url(' + @{/img/slide/slide-1.jpg} + ');'">
                     <div class="carousel-container">
                         <div class="container">
                             <h2 class="animate__animated animate__fadeInDown">Welcome
@@ -62,7 +62,7 @@
 
                 <!-- Slide 2 -->
 <!--                <body th:style="'background-image:url('@{/img/slide/slide-2.jpg} + ');'">-->
-                <div class="carousel-item" th:style="background-image: url([[ @{ '/img/slide/slide-2.jpg' } ]])">
+                <div class="carousel-item" th:style="'background-image: url(' + @{/img/slide/slide-2.jpg} + ');'">
                     <div class="carousel-container">
                         <div class="container">
                             <h2 class="animate__animated animate__fadeInDown">Learn About Flexbox</h2>
@@ -76,7 +76,8 @@
                 </div>
 
                 <!-- Slide 3 -->
-                <div class="carousel-item" style="background-image: url([[@{/img/slide/slide-3.jpg}]]">
+
+                <div class="carousel-item" th:style="'background-image: url(' + @{/img/slide/slide-3.jpg} + ');'">
                     <div class="carousel-container">
                         <div class="container">
                             <h2 class="animate__animated animate__fadeInDown">Learning Django REST API with Create Player</h2>
@@ -115,18 +116,6 @@
                 </div>
 
                 <div class="row">
-                    {% for player in players %}
-                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                        <div class="member">
-                            <img src="{{MEDIA_URL}}{{player.img}}" alt="">
-                            <h4>{{player.name}}</h4>
-                            <span>Price: {{player.price}} Millions</span>
-                            <p>
-                                {{player.desc}}
-                            </p>
-                        </div>
-                    </div>
-                    {% endfor %}
 
                 </div>
 
@@ -144,24 +133,6 @@
                 </div>
 
                 <div class="row">
-                    {% for club in clubs %}
-                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                        <div class="member">
-                            <img src="{{MEDIA_URL}}{{club.img}}" alt="">
-                            <h4>{{club.name}}</h4>
-                            <span>Worth: {{club.price}} Millions</span>
-                            <p>
-                                {{club.desc}}
-                            </p>
-                            <!--                        <div class="social">-->
-                            <!--                            <a href=""><i class="bi bi-twitter"></i></a>-->
-                            <!--                            <a href=""><i class="bi bi-facebook"></i></a>-->
-                            <!--                            <a href=""><i class="bi bi-instagram"></i></a>-->
-                            <!--                            <a href=""><i class="bi bi-linkedin"></i></a>-->
-                            <!--                        </div>-->
-                        </div>
-                    </div>
-                    {% endfor %}
 
                 </div>
 
@@ -219,7 +190,6 @@
 <!--                    {% endif %}-->
 
                 </div>
-
             </div>
         </section><!-- End Contact Section -->
 

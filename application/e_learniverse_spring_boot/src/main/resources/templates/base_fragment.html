@@ -73,7 +73,6 @@
         <!-- <a href="base_fragment.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
         <nav id="navbar" class="navbar">
 
-
             <!-- .navbar Headers will be DEFINED in this CONTENT-->
             <div th:replace="${navbar_content}">
                 <!-- Child templates will fill this block -->
@@ -84,12 +83,11 @@
 </header><!-- End Header -->
 
 
-<!-- Content block to be filled by child templates -->
-<section id="main_akash" th:replace="${main_content}">
+<!-- .navbar's CHILD will inherit this `content` in there HTML-->
+<section th:replace="${main_content}">
     <!-- Child templates will fill this block -->
 </section>
 
-<!-- .navbar's CHILD will inherit this `content` in there HTML-->
 
 
 <!-- Vendor JS Files -->
