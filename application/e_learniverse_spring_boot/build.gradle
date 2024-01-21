@@ -1,6 +1,12 @@
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	//Spring WEB Dependency
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	//Spring Data JPA Dependency
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	//Spring JDBC Dependency
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 
 	//Thymeleaf Dependency
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -8,7 +14,7 @@ dependencies {
 	//Spring Security Dependency
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 //	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
-//	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
