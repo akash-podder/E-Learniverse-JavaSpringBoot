@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.*;
 import org.hibernate.annotations.Index;
 
+import java.util.List;
+
 
 @Data
 @AllArgsConstructor
@@ -28,11 +30,16 @@ public class FootballPlayerEntity {
     private String name;
 
     @Column(nullable = false)
+    @Index(name = "email_index")
+    private String email;
+
+    @Column(nullable = false)
     private String password;
 
     private Integer age;
 
-    @Column(name = "jersey_no", length = 100, nullable = false)
-    @Index(name = "jersey_no_index")
+    @Column(name = "jersey_no", length = 100)
     private Integer jerseyNumber;
+
+    private String role;
 }

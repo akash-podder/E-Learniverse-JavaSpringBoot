@@ -1,15 +1,24 @@
 package com.akash.e_learniverse_spring_boot.config.security;
 
+import com.akash.e_learniverse_spring_boot.security.MyUserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @Configuration
 @EnableWebSecurity
 public class MySecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private MyUserDetailsServiceImpl userDetailsService;
 
 //    @Override
 //    protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -29,6 +38,7 @@ public class MySecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
+                .antMatchers("/api/create-player").permitAll() //jate kore Player Create korte Authentication Nah lagge
                 .antMatchers("/api/**","/api/player/**").authenticated() //eikane jei Endpoint gula dibo sudhu sheigular Authentication Lagbe
                 .anyRequest().permitAll()
                 .and()
@@ -41,5 +51,15 @@ public class MySecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .csrf().disable();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+       auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder());
+    }
+
+    @Bean
+    public PasswordEncoder getPasswordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 }

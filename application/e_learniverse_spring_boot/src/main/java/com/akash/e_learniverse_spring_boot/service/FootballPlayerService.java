@@ -9,4 +9,6 @@ public interface FootballPlayerService {
     FootballPlayerEntity save_player(FootballPlayerEntity footballPlayer);
 
     List<FootballPlayerEntity> get_all_football_player();
+
+    FootballPlayerEntity findByEmail(String email);
 }
