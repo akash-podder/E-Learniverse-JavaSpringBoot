@@ -1,6 +1,5 @@
 package com.akash.e_learniverse_spring_boot.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.*;
+import org.hibernate.annotations.Index;
 
 
 @Data
@@ -24,12 +24,15 @@ public class FootballPlayerEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "football_player_id_seq")
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String password;
 
     private Integer age;
 
-    @JsonProperty("jersey_no") //Json format ee jerseyNumber takbe "jersey_no" hisave
+    @Column(name = "jersey_no", length = 100, nullable = false)
+    @Index(name = "jersey_no_index")
     private Integer jerseyNumber;
 }
