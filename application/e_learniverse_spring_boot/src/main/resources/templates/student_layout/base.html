@@ -11,12 +11,13 @@
 </head>
 
 <body>
+
 <!-- Common header for all pages -->
-<header th:fragment="header">
+<header>
 
     <nav class="navbar navbar-expand-md bg-dark navbar-dark">
         <!-- Brand -->
-        <a class="navbar-brand" th:href="@{/static}">E-Learniverse</a>
+        <a class="navbar-brand" th:href="@{/}">E-Learniverse</a>
 
         <!-- Toggler/collapsibe Button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -38,13 +39,14 @@
 </header>
 
 <!-- Content block to be filled by child templates -->
-<div th:fragment="${content}">
+<section th:fragment="${content}">
     <!-- Child templates will fill this block -->
-</div>
+</section>
 
 <!-- Common footer for all pages -->
 <footer>
     <p>&copy; 2023 My Website</p>
 </footer>
+
 </body>
 </html>

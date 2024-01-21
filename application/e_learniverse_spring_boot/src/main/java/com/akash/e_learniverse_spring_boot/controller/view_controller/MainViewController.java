@@ -17,7 +17,6 @@ public class MainViewController {
 
     @GetMapping("/create-player")
     public String create_player(Model model) {
-        return "layout/create_student";
+        return "student_layout/home";
     }
-
 }
