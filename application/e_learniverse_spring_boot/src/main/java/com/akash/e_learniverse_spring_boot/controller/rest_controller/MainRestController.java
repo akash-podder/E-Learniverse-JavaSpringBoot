@@ -14,9 +14,8 @@ public class MainRestController {
 
     private static final Logger logger = LogManager.getLogger(MainRestController.class);
 
-
-    @GetMapping("/home")
-    public ResponseEntity<?> postNotification() {
+    @GetMapping("home")
+    public ResponseEntity<?> home() {
         logger.info("Home Api");
 
         return ResponseEntity.ok("E-Learniverse Home Api");
