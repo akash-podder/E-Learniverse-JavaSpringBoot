@@ -1,6 +1,6 @@
-package com.akash.e_learniverse_spring_boot.config.security;
+package com.akash.e_learniverse_spring_boot.security.config;
 
-import com.akash.e_learniverse_spring_boot.security.MyUserDetailsServiceImpl;
+import com.akash.e_learniverse_spring_boot.security.service.MyUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

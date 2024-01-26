@@ -1,4 +1,4 @@
-package com.akash.e_learniverse_spring_boot.security;
+package com.akash.e_learniverse_spring_boot.security.service;
 
 import com.akash.e_learniverse_spring_boot.entity.FootballPlayerEntity;
 import com.akash.e_learniverse_spring_boot.repository.FootballPlayerRepository;
@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 
-@Component
+@Component // We Pass this Service to our Security_Config Class where the Config will know How We Want to Authenticate our users
 public class MyUserDetailsServiceImpl implements UserDetailsService {
 
     private final FootballPlayerRepository footballPlayerRepository;
