@@ -8,9 +8,9 @@ public interface FootballPlayerService {
 
     FootballPlayerEntity savePlayer(FootballPlayerEntity footballPlayer);
 
-    FootballPlayerEntity getFootballPlayer(String playerName);
+    FootballPlayerEntity getFootballPlayerByName(String playerName);
 
     List<FootballPlayerEntity> getAllFootballPlayer();
 
-    FootballPlayerEntity findByEmail(String email);
+    FootballPlayerEntity getFootballPlayerByEmail(String email);
 }

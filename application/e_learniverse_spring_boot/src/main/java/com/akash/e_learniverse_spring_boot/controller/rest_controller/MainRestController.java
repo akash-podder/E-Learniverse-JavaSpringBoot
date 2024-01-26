@@ -8,6 +8,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -39,9 +41,12 @@ public class MainRestController {
         return ResponseEntity.ok(new ApiResponseDto("New Player Created: " + newSavedFootballPlayer.toString()));
     }
 
-    @GetMapping("player-info")
-    public ResponseEntity<?> getPlayerInfo(@RequestParam String player) {
-        FootballPlayerEntity footballPlayer = footballPlayerService.getFootballPlayer(player);
+    @GetMapping("my-info")
+    public ResponseEntity<?> getMyPlayerInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        //as during saving we used "Username = Email" of the FootballPlayer
+        FootballPlayerEntity footballPlayer = footballPlayerService.getFootballPlayerByEmail(authentication.getName());
 
         if (footballPlayer != null) {
             return ResponseEntity.ok(new ApiResponseDto("Player List: " + footballPlayer.toString()));

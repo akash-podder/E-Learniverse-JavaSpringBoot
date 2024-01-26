@@ -33,7 +33,7 @@ public class FootballPlayerServiceImpl implements FootballPlayerService {
     }
 
     @Override
-    public FootballPlayerEntity getFootballPlayer(String playerName) {
+    public FootballPlayerEntity getFootballPlayerByName(String playerName) {
         return footballPlayerRepository.findByName(playerName);
     }
 
@@ -43,7 +43,7 @@ public class FootballPlayerServiceImpl implements FootballPlayerService {
     }
 
     @Override
-    public FootballPlayerEntity findByEmail(String email) {
+    public FootballPlayerEntity getFootballPlayerByEmail(String email) {
         return footballPlayerRepository.findByEmail(email);
     }
 }
