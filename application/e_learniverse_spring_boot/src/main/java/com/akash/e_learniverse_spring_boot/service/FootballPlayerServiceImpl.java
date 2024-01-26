@@ -25,7 +25,7 @@ public class FootballPlayerServiceImpl implements FootballPlayerService {
     }
 
     @Override
-    public FootballPlayerEntity save_player(FootballPlayerEntity footballPlayer) {
+    public FootballPlayerEntity savePlayer(FootballPlayerEntity footballPlayer) {
         //TODO: we Must ENCODE Password before Saving it to Database
         footballPlayer.setPassword(passwordEncoder.encode(footballPlayer.getPassword()));
 
@@ -33,7 +33,12 @@ public class FootballPlayerServiceImpl implements FootballPlayerService {
     }
 
     @Override
-    public List<FootballPlayerEntity> get_all_football_player() {
+    public FootballPlayerEntity getFootballPlayer(String playerName) {
+        return footballPlayerRepository.findByName(playerName);
+    }
+
+    @Override
+    public List<FootballPlayerEntity> getAllFootballPlayer() {
         return footballPlayerRepository.findAll();
     }
 

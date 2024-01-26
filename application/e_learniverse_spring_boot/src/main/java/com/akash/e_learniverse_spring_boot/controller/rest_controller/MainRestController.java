@@ -6,14 +6,9 @@ import com.akash.e_learniverse_spring_boot.service.FootballPlayerService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 @RestController
@@ -39,15 +34,20 @@ public class MainRestController {
     public ResponseEntity<?> createPlayer(@RequestBody FootballPlayerEntity footballPlayer) {
         logger.info("Received: " + footballPlayer.toString());
 
-        FootballPlayerEntity newSavedFootballPlayer = footballPlayerService.save_player(footballPlayer);
+        FootballPlayerEntity newSavedFootballPlayer = footballPlayerService.savePlayer(footballPlayer);
 
         return ResponseEntity.ok(new ApiResponseDto("New Player Created: " + newSavedFootballPlayer.toString()));
     }
 
-    @GetMapping("player-all")
-    public ResponseEntity<?> getAllPlayer() {
-        List<FootballPlayerEntity> playerEntityList = footballPlayerService.get_all_football_player();
+    @GetMapping("player-info")
+    public ResponseEntity<?> getPlayerInfo(@RequestParam String player) {
+        FootballPlayerEntity footballPlayer = footballPlayerService.getFootballPlayer(player);
 
-        return ResponseEntity.ok(new ApiResponseDto("Player List: " + playerEntityList.toString()));
+        if (footballPlayer != null) {
+            return ResponseEntity.ok(new ApiResponseDto("Player List: " + footballPlayer.toString()));
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

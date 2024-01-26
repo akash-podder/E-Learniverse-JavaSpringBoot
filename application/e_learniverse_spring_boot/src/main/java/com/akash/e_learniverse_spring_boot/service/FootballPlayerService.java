@@ -6,9 +6,11 @@ import java.util.List;
 
 public interface FootballPlayerService {
 
-    FootballPlayerEntity save_player(FootballPlayerEntity footballPlayer);
+    FootballPlayerEntity savePlayer(FootballPlayerEntity footballPlayer);
 
-    List<FootballPlayerEntity> get_all_football_player();
+    FootballPlayerEntity getFootballPlayer(String playerName);
+
+    List<FootballPlayerEntity> getAllFootballPlayer();
 
     FootballPlayerEntity findByEmail(String email);
 }
