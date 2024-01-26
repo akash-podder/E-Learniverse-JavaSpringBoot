@@ -1,5 +1,6 @@
 package com.akash.e_learniverse_spring_boot.entity;
 
+import com.akash.e_learniverse_spring_boot.security.constant.SecurityEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,5 +42,5 @@ public class FootballPlayerEntity {
     @Column(name = "jersey_no", length = 100)
     private Integer jerseyNumber;
 
-    private String role;
+    private SecurityEnum.FootballPlayerRole role;
 }

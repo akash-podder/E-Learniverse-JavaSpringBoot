@@ -1,5 +1,6 @@
 package com.akash.e_learniverse_spring_boot.security.config;
 
+import com.akash.e_learniverse_spring_boot.security.constant.SecurityEnum;
 import com.akash.e_learniverse_spring_boot.security.service.MyUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -40,6 +41,7 @@ public class MySecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.authorizeRequests()
                 .antMatchers("/api/create-player").permitAll() //jate kore Player Create korte Authentication Nah lagge
                 .antMatchers("/api/**","/api/player/**").authenticated() //eikane jei Endpoint gula dibo sudhu sheigular Authentication Lagbe
+                .antMatchers("/admin/**").hasRole(SecurityEnum.FootballPlayerRole.ADMIN.getRoleToString()) //eikane jei Endpoint gula dibo sudhu sheigular Authentication Lagbe
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().permitAll()

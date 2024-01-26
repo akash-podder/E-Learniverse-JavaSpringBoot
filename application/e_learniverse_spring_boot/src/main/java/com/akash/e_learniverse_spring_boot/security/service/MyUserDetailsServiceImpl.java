@@ -28,7 +28,7 @@ public class MyUserDetailsServiceImpl implements UserDetailsService {
             UserDetails userDetails = User.builder()
                     .username(footballPlayer.getEmail())
                     .password(footballPlayer.getPassword())
-                    .roles(footballPlayer.getRole())
+                    .roles(footballPlayer.getRole().getRoleToString())
                     .build();
 
             return userDetails;
