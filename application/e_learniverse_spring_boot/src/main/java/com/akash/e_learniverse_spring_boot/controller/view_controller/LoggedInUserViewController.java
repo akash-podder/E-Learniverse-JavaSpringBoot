@@ -5,17 +5,20 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class MainViewController {
-    private static final Logger logger = LogManager.getLogger(MainViewController.class);
+@RequestMapping("/player")
+public class LoggedInUserViewController {
+    private static final Logger logger = LogManager.getLogger(LoggedInUserViewController.class);
 
-    @GetMapping("/")
+    @GetMapping("/about")
     public String home(Model model) {
-        return "layout/index";
+        return "layout/about";
     }
 
-    @GetMapping("/create/player")
+    //TODO hala madrid: Delete Page+Mechanism
+    @GetMapping("/delete")
     public String createPlayer(Model model) {
         return "student_layout/home";
     }

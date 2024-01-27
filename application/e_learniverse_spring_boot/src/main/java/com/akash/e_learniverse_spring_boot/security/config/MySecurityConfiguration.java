@@ -39,11 +39,15 @@ public class MySecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
+                //for Api Views
                 .antMatchers("/api/create-player").permitAll() //jate kore Player Create korte Authentication Nah lagge
                 .antMatchers("/api/**","/api/player/**").authenticated() //eikane jei Endpoint gula dibo sudhu sheigular Authentication Lagbe
 
+                //Normal Views
+                .antMatchers("/player/**").authenticated() //eikane jei Endpoint gula dibo sudhu sheigular Authentication Lagbe
+
                 //eikane jei Endpoint gula dibo sudhu sheigular Authentication Lagbe
-                .antMatchers("/admin/**").hasAnyRole(FootballPlayerRole.ADMIN.getRoleToString(),FootballPlayerRole.MANAGER.getRoleToString(), FootballPlayerRole.CAPTAIN.getRoleToString())
+                .antMatchers("/admin/api/**").hasAnyRole(FootballPlayerRole.ADMIN.getRoleToString(),FootballPlayerRole.MANAGER.getRoleToString(), FootballPlayerRole.CAPTAIN.getRoleToString())
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().permitAll()
@@ -52,9 +56,13 @@ public class MySecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .httpBasic();
 
-        httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .csrf().disable();
+        httpSecurity.csrf().disable();
+
+        //*** Session STATELESS korle ForntEnd ee bar bar Login kora lagbe as Backend Session mone rakhbe Nah ***
+        //*** STATELESS korbo jokon JWT use korbo Backend ee ***
+//        httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .csrf().disable();
     }
 
     @Override
