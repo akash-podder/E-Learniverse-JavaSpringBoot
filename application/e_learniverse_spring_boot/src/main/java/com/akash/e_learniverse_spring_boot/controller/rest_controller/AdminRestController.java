@@ -1,7 +1,6 @@
 package com.akash.e_learniverse_spring_boot.controller.rest_controller;
 
 import com.akash.e_learniverse_spring_boot.entity.FootballPlayerEntity;
-import com.akash.e_learniverse_spring_boot.response.ApiResponseDto;
 import com.akash.e_learniverse_spring_boot.service.FootballPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,9 +30,10 @@ public class AdminRestController {
 
     @GetMapping("player-all")
     public ResponseEntity<?> getAllPlayer() {
-        List<FootballPlayerEntity> playerEntityList = footballPlayerService.getAllFootballPlayer();
+        List<FootballPlayerEntity> playerList = footballPlayerService.getAllFootballPlayer();
 
-        return ResponseEntity.ok(new ApiResponseDto("Player List: " + playerEntityList.toString()));
+//        return ResponseEntity.ok(new ApiResponseDto("Player List: " + playerEntityList.toString()));
+        return ResponseEntity.ok(playerList);
     }
 
     @GetMapping("player-info")
@@ -41,7 +41,8 @@ public class AdminRestController {
         FootballPlayerEntity footballPlayer = footballPlayerService.getFootballPlayerByName(player);
 
         if (footballPlayer != null) {
-            return ResponseEntity.ok(new ApiResponseDto("Player List: " + footballPlayer.toString()));
+//            return ResponseEntity.ok(new ApiResponseDto("Player Info: " + footballPlayer.toString()));
+            return ResponseEntity.ok(footballPlayer);
         }
         else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

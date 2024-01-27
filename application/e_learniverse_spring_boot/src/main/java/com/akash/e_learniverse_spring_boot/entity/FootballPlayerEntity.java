@@ -1,6 +1,7 @@
 package com.akash.e_learniverse_spring_boot.entity;
 
 import com.akash.e_learniverse_spring_boot.security.constant.SecurityEnum;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,9 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.*;
-import org.hibernate.annotations.Index;
-
-import java.util.List;
 
 
 @Data
@@ -20,7 +18,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "football_player")
+@Table(name = "football_player",
+        indexes = {@Index(name = "idx_email",  columnList="email", unique = true)})
 public class FootballPlayerEntity {
 
     @Id //Sequence mane hocche, amader ID field Auto increment hobe... ei author_id_seq amra DBVear er Sequence eo pabo
@@ -31,7 +30,6 @@ public class FootballPlayerEntity {
     private String name;
 
     @Column(nullable = false)
-    @Index(name = "email_index")
     private String email;
 
     @Column(nullable = false)
@@ -39,6 +37,7 @@ public class FootballPlayerEntity {
 
     private Integer age;
 
+    @JsonProperty("jersey_no")
     @Column(name = "jersey_no", length = 100)
     private Integer jerseyNumber;
 

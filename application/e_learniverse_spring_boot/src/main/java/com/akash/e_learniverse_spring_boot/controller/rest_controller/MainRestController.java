@@ -35,13 +35,18 @@ public class MainRestController {
     @PostMapping("create-player")
     public ResponseEntity<?> createPlayer(@RequestBody FootballPlayerEntity footballPlayer) {
         logger.info("Received: " + footballPlayer.toString());
+        try{
+            FootballPlayerEntity newSavedFootballPlayer = footballPlayerService.savePlayer(footballPlayer);
 
-        FootballPlayerEntity newSavedFootballPlayer = footballPlayerService.savePlayer(footballPlayer);
-
-        return ResponseEntity.ok(new ApiResponseDto("New Player Created: " + newSavedFootballPlayer.toString()));
+//        return ResponseEntity.ok(new ApiResponseDto("New Player Created: " + newSavedFootballPlayer.toString()));
+            return ResponseEntity.ok(newSavedFootballPlayer);
+        }
+        catch (Exception ex){
+            return ResponseEntity.ok(new ApiResponseDto(ex.toString()));
+        }
     }
 
-    @GetMapping("my-info")
+    @GetMapping("my-profile-info")
     public ResponseEntity<?> getMyPlayerInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -49,7 +54,8 @@ public class MainRestController {
         FootballPlayerEntity footballPlayer = footballPlayerService.getFootballPlayerByEmail(authentication.getName());
 
         if (footballPlayer != null) {
-            return ResponseEntity.ok(new ApiResponseDto("Player List: " + footballPlayer.toString()));
+//            return ResponseEntity.ok(new ApiResponseDto("My Player Profile: " + footballPlayer.toString()));
+            return ResponseEntity.ok(footballPlayer);
         }
         else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
