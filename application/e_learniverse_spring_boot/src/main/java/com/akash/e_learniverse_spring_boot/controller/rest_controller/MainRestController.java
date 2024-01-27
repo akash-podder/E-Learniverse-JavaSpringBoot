@@ -1,6 +1,8 @@
 package com.akash.e_learniverse_spring_boot.controller.rest_controller;
 
+import com.akash.e_learniverse_spring_boot.domain.dto.FootballPlayerDto;
 import com.akash.e_learniverse_spring_boot.domain.entity.FootballPlayerEntity;
+import com.akash.e_learniverse_spring_boot.mapper.CustomObjectMapper;
 import com.akash.e_learniverse_spring_boot.response.ApiResponseDto;
 import com.akash.e_learniverse_spring_boot.service.FootballPlayerService;
 import org.apache.logging.log4j.LogManager;
@@ -18,10 +20,13 @@ import org.springframework.web.bind.annotation.*;
 public class MainRestController {
     private static final Logger logger = LogManager.getLogger(MainRestController.class);
 
+    private CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper;
+
     private final FootballPlayerService footballPlayerService;
 
     @Autowired
-    public MainRestController(FootballPlayerService footballPlayerService) {
+    public MainRestController(CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper, FootballPlayerService footballPlayerService) {
+        this.footballPlayerMapper = footballPlayerMapper;
         this.footballPlayerService = footballPlayerService;
     }
 
@@ -33,18 +38,22 @@ public class MainRestController {
 
 
     @PostMapping("create-player")
-    public ResponseEntity<?> createPlayer(@RequestBody FootballPlayerEntity footballPlayer) {
-        logger.info("Received: " + footballPlayer.toString());
+    public ResponseEntity<?> createPlayer(@RequestBody FootballPlayerDto footballPlayerDto) {
+        logger.info("Received: " + footballPlayerDto.toString());
+
+        FootballPlayerEntity playerEntity = footballPlayerMapper.mapFrom(footballPlayerDto);
+
         try{
-            FootballPlayerEntity newSavedFootballPlayer = footballPlayerService.savePlayer(footballPlayer);
+            FootballPlayerEntity newSavedFootballPlayer = footballPlayerService.savePlayer(playerEntity);
 
 //        return ResponseEntity.ok(new ApiResponseDto("New Player Created: " + newSavedFootballPlayer.toString()));
-            return ResponseEntity.ok(newSavedFootballPlayer);
+            return ResponseEntity.ok(footballPlayerMapper.mapTo(newSavedFootballPlayer));
         }
         catch (Exception ex){
             return ResponseEntity.ok(new ApiResponseDto(ex.toString()));
         }
     }
+
 
     @GetMapping("my-profile-info")
     public ResponseEntity<?> getMyPlayerInfo() {
