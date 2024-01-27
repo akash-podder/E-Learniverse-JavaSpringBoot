@@ -1,0 +1,84 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="base_fragment::layout(~{::header}, ~{::section})">
+
+<header>
+    <ul>
+        <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+        <li><a class="nav-link scrollto" href="/create/player">Create Player</a></li>
+        <li><a class="nav-link scrollto" href="/player/about">About Players</a></li>
+        <li><a class="nav-link scrollto" href="create/footballclub">Create Football Club</a></li>
+        <li><a class="nav-link scrollto " href="/flexbox-tutorial/horizontal">Learn FlexBox</a></li>
+        <li><a class="nav-link scrollto " href="/learn-celery-tutorial/theory">Learn Celery</a></li>
+        <li><a class="nav-link scrollto " href="/notification/registered_users_info">Send Notification</a></li>
+
+        <!--  *******************Navbar  Login, LogOut, SignOut Contents *************************-->
+        <!--        {% if user.is_authenticated %}-->
+        <!-- User is authenticated, show authenticated content -->
+        <!--        <li class="dropdown"><a href="#"><span></span>Welcome Ramos!<i class="bi bi-chevron-down"></i></a>-->
+        <!--            <ul>-->
+        <!--                <li><a class="nav-link scrollto" href="{% url 'user_changepass' %}">Change Password</a></li>-->
+        <!--                <li><a class="nav-link scrollto" href="{% url 'user_changepass_without_oldpass' %}">Forget Password</a></li>-->
+        <!--                <li><a class="nav-link scrollto" href="{% url 'user_logout' %}">Log Out</a></li>-->
+        <!--            </ul>-->
+        <!--        </li>-->
+        <!--        {% else %}-->
+        <!-- User is not authenticated, show login/register links -->
+        <li class="dropdown"><a href="#"><span></span>Sign Up/Login<i class="bi bi-chevron-down"></i></a>
+            <ul>
+                <li><a class="nav-link scrollto " href="/register/signup">Sign Up</a></li>
+                <li><a class="nav-link scrollto " href="/register/login">Log In</a></li>
+            </ul>
+        </li>
+        <!--        {% endif %}-->
+        <!-- ********************************************-->
+
+    </ul>
+
+    <i class="bi bi-list mobile-nav-toggle"></i>
+</header>
+
+<section>
+
+    <!-- ======= Login Form ======= -->
+    <div class="container custom-style-container">
+        <h1>Login Page</h1>
+
+        <form th:action="@{/login}" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <br>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="container">
+            <h3>Note</h3>
+            <p>It is a Website for Education Purpose. Total UI of this website is Not Built From Scratch.</p>
+            <div class="social-links">
+                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            </div>
+            <div class="copyright">
+                &copy; Copyright All Rights Reserved
+            </div>
+            <div class="credits">
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+</section>
+
+</html>

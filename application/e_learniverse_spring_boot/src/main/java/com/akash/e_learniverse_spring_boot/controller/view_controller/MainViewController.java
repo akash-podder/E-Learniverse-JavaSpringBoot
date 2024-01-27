@@ -15,6 +15,12 @@ public class MainViewController {
         return "layout/index";
     }
 
+    //by DEFAULT, there are Two "/login" Endpoint (GET & POST)... we will Override GET method only as we want the Functionality of the "POST" method to be By Default of Spring Boot
+    @GetMapping("/login")
+    public String login(Model model) {
+        return "layout/login";
+    }
+
     @GetMapping("/create/player")
     public String createPlayer(Model model) {
         return "student_layout/home";

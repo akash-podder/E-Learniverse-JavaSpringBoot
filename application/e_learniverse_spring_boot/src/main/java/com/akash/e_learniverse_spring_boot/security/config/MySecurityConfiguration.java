@@ -50,7 +50,10 @@ public class MySecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/api/**").hasAnyRole(FootballPlayerRole.ADMIN.getRoleToString(),FootballPlayerRole.MANAGER.getRoleToString(), FootballPlayerRole.CAPTAIN.getRoleToString())
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().permitAll()
+                .formLogin()
+                    .loginPage("/login") // Specify custom login page URL
+                    .defaultSuccessUrl("/") // Redirect to "/" successful login
+                    .permitAll()
                 .and()
                 .logout().permitAll()
                 .and()
