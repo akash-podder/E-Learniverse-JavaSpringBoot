@@ -1,6 +1,6 @@
 package com.akash.e_learniverse_spring_boot.controller.rest_controller;
 
-import com.akash.e_learniverse_spring_boot.entity.FootballPlayerEntity;
+import com.akash.e_learniverse_spring_boot.domain.entity.FootballPlayerEntity;
 import com.akash.e_learniverse_spring_boot.service.FootballPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,6 @@
-package com.akash.e_learniverse_spring_boot.entity;
+package com.akash.e_learniverse_spring_boot.domain.entity;
 
 import com.akash.e_learniverse_spring_boot.security.constant.SecurityEnum;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,7 +36,6 @@ public class FootballPlayerEntity {
 
     private Integer age;
 
-    @JsonProperty("jersey_no")
     @Column(name = "jersey_no", length = 100)
     private Integer jerseyNumber;
 

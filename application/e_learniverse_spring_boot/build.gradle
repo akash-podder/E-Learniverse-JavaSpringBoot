@@ -40,6 +40,10 @@ dependencies {
 	implementation 'com.google.firebase:firebase-admin:9.1.1'
 
 
+	//ModelMapper Dependency ---> to Convert DTO to Entity Object & vice-versa
+	implementation 'org.modelmapper:modelmapper:3.0.0'
+
+
 	// Importing Modules in this Sub-project
 	implementation project(':modules:common')
 }
