@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class MainRestController {
     private static final Logger logger = LogManager.getLogger(MainRestController.class);
 
-    private CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper;
+    private final CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper;
 
     private final FootballPlayerService footballPlayerService;
 
