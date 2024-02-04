@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Log File is in Git Ignore ###
+Log_E_learniverse.log
+Log_E_learniverse_RollingFile.log
+Log_E_learniverse_RollingFile-*.log
+*.log
