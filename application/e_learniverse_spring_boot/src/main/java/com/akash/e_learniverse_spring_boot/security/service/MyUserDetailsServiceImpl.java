@@ -2,6 +2,7 @@ package com.akash.e_learniverse_spring_boot.security.service;
 
 import com.akash.e_learniverse_spring_boot.domain.entity.FootballPlayerEntity;
 import com.akash.e_learniverse_spring_boot.repository.FootballPlayerRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +23,10 @@ public class MyUserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        FootballPlayerEntity footballPlayer = footballPlayerRepository.findByEmail(username); //here, Email is the Unique identifer for EveryFootball Player
+        FootballPlayerEntity footballPlayer = null;
+        if(StringUtils.isNotBlank(username)) {
+            footballPlayer  = footballPlayerRepository.findByEmail(username); //here, Email is the Unique identifer for EveryFootball Player
+        }
 
         if (footballPlayer != null) {
             UserDetails userDetails = User.builder()
