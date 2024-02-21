@@ -50,6 +50,8 @@ dependencies {
 	// apache commons Dependency
 	implementation 'org.apache.commons:commons-lang3:3.0'
 
+	// Spring Boot Devtools(Auto Restart ---> also intelliJ Advanced Settings go & enable "allow auto-make start...")
+	compileOnly 'org.springframework.boot:spring-boot-devtools'
 
 	// Importing Modules in this Sub-project
 	implementation project(':modules:common')
