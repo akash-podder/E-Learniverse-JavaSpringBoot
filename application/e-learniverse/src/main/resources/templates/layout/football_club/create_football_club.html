@@ -42,16 +42,18 @@
 
     <!-- ======= Login Form ======= -->
     <div class="container custom-style-container">
-        <h1>Login Page</h1>
+        <h1>Create a Football Club Page</h1>
 
-        <form th:action="@{/login}" method="post">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+        <form th:action="@{/create-club}" method="post" th:object="${football_club}">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" th:field="*{name}" required>
             <br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+
+            <label>Description:</label>
+            <input type="text" id="description" name="description" th:field="*{description}" required>
             <br>
-            <button type="submit">Login</button>
+
+            <button type="submit">Create Club</button>
         </form>
     </div>
 

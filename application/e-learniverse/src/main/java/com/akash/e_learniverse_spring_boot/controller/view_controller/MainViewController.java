@@ -1,8 +1,11 @@
 package com.akash.e_learniverse_spring_boot.controller.view_controller;
 
+import com.akash.e_learniverse_spring_boot.domain.dto.FootballClubDto;
 import com.akash.e_learniverse_spring_boot.domain.dto.FootballPlayerDto;
+import com.akash.e_learniverse_spring_boot.domain.entity.FootballClubEntity;
 import com.akash.e_learniverse_spring_boot.domain.entity.FootballPlayerEntity;
 import com.akash.e_learniverse_spring_boot.mapper.CustomObjectMapper;
+import com.akash.e_learniverse_spring_boot.service.football_club.FootballClubService;
 import com.akash.e_learniverse_spring_boot.service.football_player.FootballPlayerService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,13 +21,17 @@ public class MainViewController {
     private static final Logger logger = LogManager.getLogger(MainViewController.class);
 
     private final CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper;
-
+    private final CustomObjectMapper<FootballClubEntity, FootballClubDto> footballClubMapper;
     private final FootballPlayerService footballPlayerService;
+    private final FootballClubService footballClubService;
+
 
     @Autowired
-    public MainViewController(CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper, FootballPlayerService footballPlayerService) {
+    public MainViewController(CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper, CustomObjectMapper<FootballClubEntity, FootballClubDto> footballClubMapper, FootballPlayerService footballPlayerService, FootballClubService footballClubService) {
         this.footballPlayerMapper = footballPlayerMapper;
+        this.footballClubMapper = footballClubMapper;
         this.footballPlayerService = footballPlayerService;
+        this.footballClubService = footballClubService;
     }
 
 
@@ -43,7 +50,7 @@ public class MainViewController {
     public String showCreatePlayerForm(Model model) {
         // Add an empty Player object to the model for Thymeleaf to bind the form to
         model.addAttribute("player", new FootballPlayerDto());
-        return "layout/create_player";
+        return "layout/football_player/create_player";
     }
 
     @PostMapping("/create-player")
@@ -61,7 +68,29 @@ public class MainViewController {
             // Redirect to a Error page
             return "redirect:/";
         }
+    }
 
+    @GetMapping("/create-club")
+    public String showCreateClubForm(Model model) {
+        // Add an empty Player object to the model for Thymeleaf to bind the form to
+        model.addAttribute("football_club", new FootballClubDto());
+        return "layout/football_club/create_football_club";
+    }
 
+    @PostMapping("/create-club")
+    public String createClub(@ModelAttribute("football_club") FootballClubDto footballClubDto) {
+        // Logic to save the player to the database or perform any necessary actions
+        FootballClubEntity clubEntity = footballClubMapper.mapFrom(footballClubDto);
+
+        try{
+            FootballClubEntity newFootballClub = footballClubService.createFootballClub(clubEntity);
+
+            // Redirect to a success page or another appropriate page
+            return "redirect:/login";
+        }
+        catch (Exception ex){
+            // Redirect to a Error page
+            return "redirect:/";
+        }
     }
 }

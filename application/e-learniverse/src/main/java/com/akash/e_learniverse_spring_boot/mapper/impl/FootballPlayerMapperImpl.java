@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FootballMapperImpl implements CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> {
+public class FootballPlayerMapperImpl implements CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> {
 
     //    AutoWired hobe ---> "MapperConfig" class ee @Bean hisave Declare kora ase "ModelMapper" ke
     private ModelMapper modelMapper;
 
     @Autowired
-    public FootballMapperImpl(ModelMapper modelMapper) {
+    public FootballPlayerMapperImpl(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 
