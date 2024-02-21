@@ -1,4 +1,4 @@
-package com.akash.e_learniverse_spring_boot.service;
+package com.akash.e_learniverse_spring_boot.service.football_player;
 
 import com.akash.e_learniverse_spring_boot.domain.entity.FootballPlayerEntity;
 import com.akash.e_learniverse_spring_boot.repository.FootballPlayerRepository;

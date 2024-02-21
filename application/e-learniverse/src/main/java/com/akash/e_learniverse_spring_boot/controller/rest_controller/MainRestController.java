@@ -4,7 +4,7 @@ import com.akash.e_learniverse_spring_boot.domain.dto.FootballPlayerDto;
 import com.akash.e_learniverse_spring_boot.domain.entity.FootballPlayerEntity;
 import com.akash.e_learniverse_spring_boot.mapper.CustomObjectMapper;
 import com.akash.e_learniverse_spring_boot.response.ApiResponseDto;
-import com.akash.e_learniverse_spring_boot.service.FootballPlayerService;
+import com.akash.e_learniverse_spring_boot.service.football_player.FootballPlayerService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
