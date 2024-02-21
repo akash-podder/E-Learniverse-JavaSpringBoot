@@ -4,4 +4,4 @@ rootProject.name = 'e_learniverse_spring_boot'
 include('modules:common')
 
 //include application(main)
-include('application:e_learniverse_spring_boot')
+include('application:e-learniverse')
