@@ -20,6 +20,6 @@ public class LoggedInUserViewController {
     //TODO hala madrid: Delete Page+Mechanism
     @GetMapping("/delete")
     public String deletePlayer(Model model) {
-        return "student_layout/home";
+        return "layout/index";
     }
 }

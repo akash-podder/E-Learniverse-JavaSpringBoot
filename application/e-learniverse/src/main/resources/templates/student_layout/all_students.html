@@ -1,5 +1,29 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="student_layout/base::layout(~{::section})">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="student_layout/base::layout(~{::header}, ~{::section})">
+
+<header>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <!-- Brand -->
+        <a class="navbar-brand" th:href="@{/}">E-Learniverse</a>
+
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/students}">Student Management</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/student/create}">Add Student</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
 
 <section>
     <div class ="container">
