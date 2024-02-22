@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class FootballPlayerMapperImpl implements CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> {
 
-    //    AutoWired hobe ---> "MapperConfig" class ee @Bean hisave Declare kora ase "ModelMapper" ke
+    // AutoWired hobe ---> "MapperConfig" class ee @Bean hisave Declare kora ase "ModelMapper" ke
     private ModelMapper modelMapper;
 
     @Autowired
@@ -19,12 +19,12 @@ public class FootballPlayerMapperImpl implements CustomObjectMapper<FootballPlay
     }
 
     @Override
-    public FootballPlayerDto mapTo(FootballPlayerEntity authorEntity) {
-        return modelMapper.map(authorEntity, FootballPlayerDto.class);
+    public FootballPlayerDto mapTo(FootballPlayerEntity footballPlayerEntity) {
+        return modelMapper.map(footballPlayerEntity, FootballPlayerDto.class);
     }
 
     @Override
-    public FootballPlayerEntity mapFrom(FootballPlayerDto authorDto) {
-        return modelMapper.map(authorDto, FootballPlayerEntity.class);
+    public FootballPlayerEntity mapFrom(FootballPlayerDto footballPlayerDto) {
+        return modelMapper.map(footballPlayerDto, FootballPlayerEntity.class);
     }
 }

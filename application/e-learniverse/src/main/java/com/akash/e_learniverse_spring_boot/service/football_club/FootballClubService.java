@@ -11,5 +11,5 @@ public interface FootballClubService {
 
     FootballClubEntity getFootballClubByName(String clubName);
 
-    List<FootballClubEntity>getAllFootballClub();
+    List<FootballClubEntity> getAllFootballClub();
 }

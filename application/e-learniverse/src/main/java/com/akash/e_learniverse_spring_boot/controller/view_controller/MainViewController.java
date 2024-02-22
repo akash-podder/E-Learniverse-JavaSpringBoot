@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class MainViewController {
     private static final Logger logger = LogManager.getLogger(MainViewController.class);
@@ -37,6 +39,12 @@ public class MainViewController {
 
     @GetMapping("/")
     public String home(Model model) {
+        List<FootballPlayerEntity> footballPlayerEntityList = footballPlayerService.getAllFootballPlayer();
+        List<FootballClubEntity> footballClubEntityList = footballClubService.getAllFootballClub();
+
+        model.addAttribute("football_player_all", footballPlayerEntityList);
+        model.addAttribute("football_club_all", footballClubEntityList);
+
         return "layout/index";
     }
 

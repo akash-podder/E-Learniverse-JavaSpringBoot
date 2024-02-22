@@ -115,8 +115,17 @@
                     <p>Here are some information about some of the Greatest Footballs Players in the World.</p>
                 </div>
 
-                <div class="row">
-
+                <div class="row" th:each = "player: ${football_player_all}">
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                        <div class="member">
+                            <!--                            <img src="{{MEDIA_URL}}{{club.img}}" alt="">-->
+                            <h4 th:text = "${player.name}"></h4>
+                            <!--                            <span th:text = "${club.name}">Worth: {{club.price}} Millions</span>-->
+                            <p th:text="'Age: ' + ${player.age}"></p>
+                            <p th:text = "'Jersey Number: ' + ${player.jerseyNumber}"/>
+                            <p th:text = "'Role: ' + ${player.role}"/>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -132,8 +141,16 @@
                     <p>Here are some information about some of the Greatest Clubs in the World of Football.</p>
                 </div>
 
-                <div class="row">
-
+                <div class="row" th:each = "club: ${football_club_all}">
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                        <div class="member">
+<!--                            <img src="{{MEDIA_URL}}{{club.img}}" alt="">-->
+                            <h4 th:text = "${club.name}"></h4>
+<!--                            <span th:text = "${club.name}">Worth: {{club.price}} Millions</span>-->
+                            <p th:text = "${club.description}">
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
             </div>
