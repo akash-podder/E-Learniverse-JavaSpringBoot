@@ -54,6 +54,31 @@ public class MainViewController {
         return "layout/login";
     }
 
+    @GetMapping("/register")
+    public String registrationForm(Model model) {
+        // Add an empty Player object to the model for Thymeleaf to bind the form to
+        model.addAttribute("player", new FootballPlayerDto());
+        return "layout/football_player/create_player";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute("player") FootballPlayerDto footballPlayerDto) {
+        // Logic to save the player to the database or perform any necessary actions
+        FootballPlayerEntity playerEntity = footballPlayerMapper.mapFrom(footballPlayerDto);
+
+        try{
+            FootballPlayerEntity newSavedFootballPlayer = footballPlayerService.savePlayer(playerEntity);
+
+            // Redirect to a success page or another appropriate page
+            return "redirect:/login";
+        }
+        catch (Exception ex){
+            // Redirect to a Error page
+            return "redirect:/";
+        }
+    }
+
+
     @GetMapping("/create-player")
     public String showCreatePlayerForm(Model model) {
         // Add an empty Player object to the model for Thymeleaf to bind the form to
