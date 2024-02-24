@@ -1,3 +1,9 @@
+<!--    1. Trace-Level-->
+<!--    2. Debug-Level-->
+<!--    3. Info-Level //By Default Spring Boot ee Info-Level theke print hui log-->
+<!--    4. Warn-Level-->
+<!--    5. Error-Level-->
+
 <configuration>
     <appender name="myConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -36,10 +42,7 @@
 <!--        <appender-ref ref="myRollingFileAppender"/>-->
     </root>
 
-<!--    1. Trace-Level-->
-<!--    2. Debug-Level-->
-<!--    3. Info-Level //By Default Spring Boot ee Info-Level theke print hui log-->
-<!--    4. Warn-Level-->
-<!--    5. Error-Level-->
+    <!-- RabbitMQ er Log dekhar jonno-->
+    <logger name="com.akash.integration.jmsconfig" level="debug" />
 
 </configuration>

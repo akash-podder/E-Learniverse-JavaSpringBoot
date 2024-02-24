@@ -4,6 +4,7 @@ import com.akash.e_learniverse_spring_boot.domain.dto.FootballPlayerDto;
 import com.akash.e_learniverse_spring_boot.domain.dto.request_dto.SendEmailRequestDto;
 import com.akash.e_learniverse_spring_boot.domain.entity.FootballPlayerEntity;
 import com.akash.e_learniverse_spring_boot.mapper.CustomObjectMapper;
+import com.akash.e_learniverse_spring_boot.pub_sub.EmailPublisher;
 import com.akash.e_learniverse_spring_boot.response.ApiResponseDto;
 import com.akash.e_learniverse_spring_boot.service.email_service.EmailService;
 import com.akash.e_learniverse_spring_boot.service.football_player.FootballPlayerService;
@@ -25,13 +26,13 @@ public class MainRestController {
     private final CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper;
 
     private final FootballPlayerService footballPlayerService;
-    private final EmailService emailService;
+    private final EmailPublisher emailPublisher;
 
     @Autowired
-    public MainRestController(CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper, FootballPlayerService footballPlayerService, EmailService emailService) {
+    public MainRestController(CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper, FootballPlayerService footballPlayerService, EmailPublisher emailPublisher) {
         this.footballPlayerMapper = footballPlayerMapper;
         this.footballPlayerService = footballPlayerService;
-        this.emailService = emailService;
+        this.emailPublisher = emailPublisher;
     }
 
     @GetMapping("home")
@@ -77,7 +78,14 @@ public class MainRestController {
 
     @PostMapping("send-email")
     public ResponseEntity<?> sendEmail(@RequestBody SendEmailRequestDto emailRequestDto) {
-        emailService.sendEmail(emailRequestDto.getTo(), emailRequestDto.getSubject(), emailRequestDto.getBody());
+//        emailService.sendEmail(emailRequestDto.getTo(), emailRequestDto.getSubject(), emailRequestDto.getBody());
+
+        return ResponseEntity.ok(new ApiResponseDto("Email Sent"));
+    }
+
+    @PostMapping("dummy")
+    public ResponseEntity<?> dummy(@RequestBody SendEmailRequestDto emailRequestDto) {
+        emailPublisher.sendEmail(emailRequestDto);
 
         return ResponseEntity.ok(new ApiResponseDto("Email Sent"));
     }
