@@ -41,3 +41,6 @@ Log_E_learniverse.log
 Log_E_learniverse_RollingFile.log
 Log_E_learniverse_RollingFile-*.log
 *.log
+
+# *** Secret Properties file won't be in Remote Git Repository ***
+secret.properties

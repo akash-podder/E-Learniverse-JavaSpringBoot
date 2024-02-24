@@ -1,9 +1,11 @@
 spring:
+  config:
+    import: optional:secret.properties
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ******
-    password: ******
+    username: ${email-address}
+    password: ${email-app-password}
     properties:
       mail:
         smtp:
