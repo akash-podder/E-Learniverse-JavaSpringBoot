@@ -21,6 +21,9 @@ dependencies {
 //	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
 	testImplementation 'org.springframework.security:spring-security-test'
 
+	// To Send Email
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
@@ -44,7 +47,7 @@ dependencies {
 	implementation 'com.google.firebase:firebase-admin:9.1.1'
 
 
-	//ModelMapper Dependency ---> to Convert DTO to Entity Object & vice-versa
+	// ModelMapper Dependency ---> to Convert DTO to Entity Object & vice-versa
 	implementation 'org.modelmapper:modelmapper:3.0.0'
 
 	// apache commons Dependency

@@ -1,9 +1,11 @@
 package com.akash.e_learniverse_spring_boot.controller.rest_controller;
 
 import com.akash.e_learniverse_spring_boot.domain.dto.FootballPlayerDto;
+import com.akash.e_learniverse_spring_boot.domain.dto.request_dto.SendEmailRequestDto;
 import com.akash.e_learniverse_spring_boot.domain.entity.FootballPlayerEntity;
 import com.akash.e_learniverse_spring_boot.mapper.CustomObjectMapper;
 import com.akash.e_learniverse_spring_boot.response.ApiResponseDto;
+import com.akash.e_learniverse_spring_boot.service.email_service.EmailService;
 import com.akash.e_learniverse_spring_boot.service.football_player.FootballPlayerService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,11 +25,13 @@ public class MainRestController {
     private final CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper;
 
     private final FootballPlayerService footballPlayerService;
+    private final EmailService emailService;
 
     @Autowired
-    public MainRestController(CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper, FootballPlayerService footballPlayerService) {
+    public MainRestController(CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper, FootballPlayerService footballPlayerService, EmailService emailService) {
         this.footballPlayerMapper = footballPlayerMapper;
         this.footballPlayerService = footballPlayerService;
+        this.emailService = emailService;
     }
 
     @GetMapping("home")
@@ -69,5 +73,12 @@ public class MainRestController {
         else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PostMapping("send-email")
+    public ResponseEntity<?> sendEmail(@RequestBody SendEmailRequestDto emailRequestDto) {
+        emailService.sendEmail(emailRequestDto.getTo(), emailRequestDto.getSubject(), emailRequestDto.getBody());
+
+        return ResponseEntity.ok(new ApiResponseDto("Email Sent"));
     }
 }
