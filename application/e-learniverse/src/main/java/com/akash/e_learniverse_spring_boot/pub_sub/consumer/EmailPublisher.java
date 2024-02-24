@@ -1,4 +1,4 @@
-package com.akash.e_learniverse_spring_boot.pub_sub;
+package com.akash.e_learniverse_spring_boot.pub_sub.consumer;
 
 import com.akash.e_learniverse_spring_boot.domain.dto.request_dto.SendEmailRequestDto;
 import com.akash.integration.jmsconfig.JmsConstant;
@@ -16,7 +16,7 @@ public class EmailPublisher {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void sendEmail(SendEmailRequestDto emailRequestDto){
+    public void sendEmail(SendEmailRequestDto emailRequestDto) {
         this.rabbitTemplate.convertAndSend(JmsConstant.EMAIL_EXCHANGE,
                 JmsConstant.EMAIL_RK, "Hello Ramos");
     }

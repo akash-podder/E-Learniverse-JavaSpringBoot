@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JmsConsumerConfig {
 
-    @Bean("e_learniverse_connectionFactory")
-    public SimpleRabbitListenerContainerFactory eLearniverseConnectionFactory(
+    @Bean("e_learniverseSimpleRabbitListenerContainerFactory")
+    public SimpleRabbitListenerContainerFactory eLearniverseSimpleRabbitListenerContainerFactory(
             @Qualifier("learniverseConnectionFactory") ConnectionFactory connectionFactory,
              JmsProperties jmsProperties)
     {
