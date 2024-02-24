@@ -162,11 +162,23 @@
 
 <!--                    {% if not email_sent_msg %}-->
                     <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-                        <form action="{% url 'index' %}" method="POST" role="form" class="php-email-form">
-<!--                            {% csrf_token %}-->
-<!--                            {{email_form.as_p}}-->
-                            <button type="submit" value="Log-in">Send Email</button>
+                        <form th:action="@{/send-email}" method="post" th:object="${email_request_obj}" class="php-email-form">
+
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" th:field="*{to}" required>
+                            <br>
+
+                            <label for="subject">Subject:</label>
+                            <input type="text" id="subject" name="subject" th:field="*{subject}" required>
+                            <br>
+
+                            <label for="body">Email Body:</label>
+                            <input type="text" id="body" name="subject" th:field="*{body}" required>
+                            <br>
+
+                            <button type="submit">Send Email</button>
                         </form>
+
                     </div>
 <!--                    {% else %}-->
 <!--                    <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">-->

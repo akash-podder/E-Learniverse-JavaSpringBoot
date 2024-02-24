@@ -2,19 +2,24 @@ package com.akash.e_learniverse_spring_boot.controller.view_controller;
 
 import com.akash.e_learniverse_spring_boot.domain.dto.FootballClubDto;
 import com.akash.e_learniverse_spring_boot.domain.dto.FootballPlayerDto;
+import com.akash.e_learniverse_spring_boot.domain.dto.request_dto.SendEmailRequestDto;
 import com.akash.e_learniverse_spring_boot.domain.entity.FootballClubEntity;
 import com.akash.e_learniverse_spring_boot.domain.entity.FootballPlayerEntity;
 import com.akash.e_learniverse_spring_boot.mapper.CustomObjectMapper;
+import com.akash.e_learniverse_spring_boot.response.ApiResponseDto;
+import com.akash.e_learniverse_spring_boot.service.email_service.EmailService;
 import com.akash.e_learniverse_spring_boot.service.football_club.FootballClubService;
 import com.akash.e_learniverse_spring_boot.service.football_player.FootballPlayerService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -26,14 +31,16 @@ public class MainViewController {
     private final CustomObjectMapper<FootballClubEntity, FootballClubDto> footballClubMapper;
     private final FootballPlayerService footballPlayerService;
     private final FootballClubService footballClubService;
+    private final EmailService emailService;
 
 
     @Autowired
-    public MainViewController(CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper, CustomObjectMapper<FootballClubEntity, FootballClubDto> footballClubMapper, FootballPlayerService footballPlayerService, FootballClubService footballClubService) {
+    public MainViewController(CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper, CustomObjectMapper<FootballClubEntity, FootballClubDto> footballClubMapper, FootballPlayerService footballPlayerService, FootballClubService footballClubService, EmailService emailService) {
         this.footballPlayerMapper = footballPlayerMapper;
         this.footballClubMapper = footballClubMapper;
         this.footballPlayerService = footballPlayerService;
         this.footballClubService = footballClubService;
+        this.emailService = emailService;
     }
 
 
@@ -44,6 +51,7 @@ public class MainViewController {
 
         model.addAttribute("football_player_all", footballPlayerEntityList);
         model.addAttribute("football_club_all", footballClubEntityList);
+        model.addAttribute("email_request_obj", new SendEmailRequestDto());
 
         return "layout/index";
     }
@@ -125,5 +133,12 @@ public class MainViewController {
             // Redirect to a Error page
             return "redirect:/";
         }
+    }
+
+    @PostMapping("send-email")
+    public String sendEmail(@ModelAttribute("email_request_obj") SendEmailRequestDto emailRequestDto) {
+        emailService.sendEmail(emailRequestDto.getTo(), emailRequestDto.getSubject(), emailRequestDto.getBody());
+
+        return "redirect:/";
     }
 }
