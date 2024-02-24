@@ -12,3 +12,18 @@ spring:
           auth: true
           starttls:
             enable: true
+
+e-learniverse:
+  jms:
+    host: ${rabbitmq-host-url}
+    port: 5672
+    user: ${rabbitmq-username}
+    password: ${rabbitmq-password}
+    wait-for-publisher-response: false
+    min-consumer: 20
+    max-consumer: 50
+
+  rabbit-config:
+    email-exchange: e_learniverse_exchange_email
+    email-queue: e_learniverse_queue_email
+    email-routing-key: e_learniverse_routingKey_email

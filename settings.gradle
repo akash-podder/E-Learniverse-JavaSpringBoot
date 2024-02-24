@@ -2,6 +2,7 @@ rootProject.name = 'e_learniverse_spring_boot'
 
 //include sub-modules
 include('modules:common')
+include('modules:config:jms-config') //sub-module for Pub-Sub
 
 //include application(main)
 include('application:e-learniverse')
