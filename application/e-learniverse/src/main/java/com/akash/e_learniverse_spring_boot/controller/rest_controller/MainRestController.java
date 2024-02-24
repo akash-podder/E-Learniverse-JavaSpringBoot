@@ -5,6 +5,7 @@ import com.akash.e_learniverse_spring_boot.domain.dto.request_dto.SendEmailReque
 import com.akash.e_learniverse_spring_boot.domain.entity.FootballPlayerEntity;
 import com.akash.e_learniverse_spring_boot.mapper.CustomObjectMapper;
 import com.akash.e_learniverse_spring_boot.pub_sub.consumer.EmailPublisher;
+import com.akash.e_learniverse_spring_boot.pub_sub.consumer.EmailPublisherImpl;
 import com.akash.e_learniverse_spring_boot.response.ApiResponseDto;
 import com.akash.e_learniverse_spring_boot.service.football_player.FootballPlayerService;
 import org.apache.logging.log4j.LogManager;
@@ -28,7 +29,7 @@ public class MainRestController {
     private final EmailPublisher emailPublisher;
 
     @Autowired
-    public MainRestController(CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper, FootballPlayerService footballPlayerService, EmailPublisher emailPublisher) {
+    public MainRestController(CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper, FootballPlayerService footballPlayerService, EmailPublisherImpl emailPublisher) {
         this.footballPlayerMapper = footballPlayerMapper;
         this.footballPlayerService = footballPlayerService;
         this.emailPublisher = emailPublisher;
@@ -77,14 +78,8 @@ public class MainRestController {
 
     @PostMapping("send-email")
     public ResponseEntity<?> sendEmail(@RequestBody SendEmailRequestDto emailRequestDto) {
-//        emailService.sendEmail(emailRequestDto.getTo(), emailRequestDto.getSubject(), emailRequestDto.getBody());
-
-        return ResponseEntity.ok(new ApiResponseDto("Email Sent"));
-    }
-
-    @PostMapping("dummy")
-    public ResponseEntity<?> dummy(@RequestBody SendEmailRequestDto emailRequestDto) {
-        emailPublisher.sendEmail(emailRequestDto);
+        logger.info("publishing to EmailQueue: {}", emailRequestDto);
+        emailPublisher.publishEmailToQueue(emailRequestDto);
 
         return ResponseEntity.ok(new ApiResponseDto("Email Sent"));
     }

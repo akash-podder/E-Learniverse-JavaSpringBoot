@@ -1,4 +1,7 @@
 package com.akash.e_learniverse_spring_boot.pub_sub.publisher;
+import com.akash.e_learniverse_spring_boot.domain.dto.request_dto.SendEmailRequestDto;
+import com.akash.e_learniverse_spring_boot.service.email_service.EmailService;
+import com.akash.e_learniverse_spring_boot.util.MapperUtil;
 import com.akash.integration.jmsconfig.JmsConstant;
 
 import org.apache.logging.log4j.LogManager;
@@ -10,12 +13,28 @@ import org.springframework.stereotype.Component;
 public class EmailConsumer {
     private static final Logger logger = LogManager.getLogger(EmailConsumer.class);
 
-    @RabbitListener(queues = JmsConstant.EMAIL_QUEUE, containerFactory = "e_learniverseSimpleRabbitListenerContainerFactory")
-    public void publishEmailMessage(String request) {
-        publishEmail(request);
+    private final EmailService emailService;
+
+    public EmailConsumer(EmailService emailService) {
+        this.emailService = emailService;
     }
 
-    private void publishEmail(String request) {
-        logger.info("Email request consumed, request: {}", request);
+    @RabbitListener(queues = JmsConstant.EMAIL_QUEUE, containerFactory = "e_learniverseSimpleRabbitListenerContainerFactory")
+    public void consumeEmailMessage(String request) {
+        sendEmailViaEmailService(request);
+    }
+
+    private void sendEmailViaEmailService(String request) {
+        logger.info("`EmailConsumer` consumed, request: {}", request);
+
+        try {
+            SendEmailRequestDto emailRequestDto = MapperUtil.fromJson(request, SendEmailRequestDto.class)
+                    .orElseThrow(() -> new Exception("Data cannot be converted to SendEmailRequestDto!"));
+            logger.info("`EmailConsumer` converted to Java Object completed, status: {}", emailRequestDto);
+            emailService.sendEmail(emailRequestDto);
+        }
+        catch (Exception ex) {
+            logger.error("HandlerOffer failed, cause: {}", ex.getMessage(), ex);
+        }
     }
 }

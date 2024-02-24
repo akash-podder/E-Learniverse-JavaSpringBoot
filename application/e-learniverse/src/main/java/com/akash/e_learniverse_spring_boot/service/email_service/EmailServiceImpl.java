@@ -1,5 +1,6 @@
 package com.akash.e_learniverse_spring_boot.service.email_service;
 
+import com.akash.e_learniverse_spring_boot.domain.dto.request_dto.SendEmailRequestDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,12 @@ public class EmailServiceImpl implements EmailService {
     private JavaMailSender javaMailSender;
 
     @Override
-    public void sendEmail(String toMail, String emailSubject, String emailBody) {
+    public void sendEmail(SendEmailRequestDto emailRequestDto) {
         try{
             SimpleMailMessage mail = new SimpleMailMessage();
-            mail.setTo(toMail);
-            mail.setSubject(emailSubject);
-            mail.setText(emailBody);
+            mail.setTo(emailRequestDto.getTo());
+            mail.setSubject(emailRequestDto.getSubject());
+            mail.setText(emailRequestDto.getBody());
             javaMailSender.send(mail);
         }
         catch (Exception ex){
