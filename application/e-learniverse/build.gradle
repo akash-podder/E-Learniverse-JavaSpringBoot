@@ -3,6 +3,13 @@ war {
 }
 
 dependencies {
+
+	//**********************************************************************************************
+	// *** Importing Modules in this Sub-project *** As Application Module Depends upn this Packages
+	implementation project(':modules:common')
+	implementation project(':modules:config:jms-config')
+
+
 	//Spring WEB Dependency
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
@@ -55,7 +62,4 @@ dependencies {
 
 	// Spring Boot Devtools(Auto Restart ---> also intelliJ Advanced Settings go & enable "allow auto-make start...")
 	compileOnly 'org.springframework.boot:spring-boot-devtools'
-
-	// Importing Modules in this Sub-project
-	implementation project(':modules:common')
 }
