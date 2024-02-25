@@ -8,10 +8,10 @@
 
 <section>
 
-    <!-- ======= Login Form ======= -->
     <div class="container custom-style-container">
         <h1>Registration Player Page</h1>
 
+        <!-- ======= Create Player Form ======= -->
         <form th:action="@{/create-player}" method="post" th:object="${player}">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" th:field="*{name}" required>

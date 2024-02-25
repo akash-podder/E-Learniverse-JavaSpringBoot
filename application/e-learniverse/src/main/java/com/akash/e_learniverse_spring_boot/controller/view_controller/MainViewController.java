@@ -143,6 +143,6 @@ public class MainViewController {
     @PostMapping("/rating")
     public String showRating(Model model) {
 
-        return "redirect:/";
+        return "layout/rating";
     }
 }
