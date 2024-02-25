@@ -24,4 +24,6 @@ public class FootballClubEntity {
     private String name;
 
     private String description;
+
+    private int rating;
 }

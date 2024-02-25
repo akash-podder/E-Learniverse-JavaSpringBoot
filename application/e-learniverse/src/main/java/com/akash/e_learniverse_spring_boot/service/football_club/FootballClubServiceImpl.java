@@ -1,7 +1,6 @@
 package com.akash.e_learniverse_spring_boot.service.football_club;
 
 import com.akash.e_learniverse_spring_boot.domain.entity.FootballClubEntity;
-import com.akash.e_learniverse_spring_boot.domain.entity.FootballPlayerEntity;
 import com.akash.e_learniverse_spring_boot.repository.FootballClubRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

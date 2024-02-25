@@ -132,10 +132,16 @@ public class MainViewController {
         }
     }
 
-    @PostMapping("send-email")
+    @PostMapping("/send-email")
     public String sendEmail(@ModelAttribute("email_request_obj") SendEmailRequestDto emailRequestDto) {
         logger.info("publishing to EmailQueue: {}", emailRequestDto);
         emailPublisher.publishEmailToQueue(emailRequestDto);
+
+        return "redirect:/";
+    }
+
+    @PostMapping("/rating")
+    public String showRating(Model model) {
 
         return "redirect:/";
     }
