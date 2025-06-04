@@ -1,4 +1,4 @@
-package com.akash.e_learniverse_spring_boot.pub_sub.publisher;
+package com.akash.e_learniverse_spring_boot.pub_sub.consumer;
 import com.akash.e_learniverse_spring_boot.domain.dto.request_dto.SendEmailRequestDto;
 import com.akash.e_learniverse_spring_boot.service.email_service.EmailService;
 import com.akash.e_learniverse_spring_boot.util.MapperUtil;

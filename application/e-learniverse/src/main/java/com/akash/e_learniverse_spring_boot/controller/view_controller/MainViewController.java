@@ -6,7 +6,7 @@ import com.akash.e_learniverse_spring_boot.domain.dto.request_dto.SendEmailReque
 import com.akash.e_learniverse_spring_boot.domain.entity.FootballClubEntity;
 import com.akash.e_learniverse_spring_boot.domain.entity.FootballPlayerEntity;
 import com.akash.e_learniverse_spring_boot.mapper.CustomObjectMapper;
-import com.akash.e_learniverse_spring_boot.pub_sub.consumer.EmailPublisher;
+import com.akash.e_learniverse_spring_boot.pub_sub.publisher.EmailPublisher;
 import com.akash.e_learniverse_spring_boot.service.football_club.FootballClubService;
 import com.akash.e_learniverse_spring_boot.service.football_player.FootballPlayerService;
 import org.apache.logging.log4j.LogManager;
@@ -127,7 +127,7 @@ public class MainViewController {
             return "redirect:/login";
         }
         catch (Exception ex){
-            // Redirect to a Error page
+            // Redirect to an Error page
             return "redirect:/";
         }
     }
