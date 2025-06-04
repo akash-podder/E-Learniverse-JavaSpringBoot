@@ -32,7 +32,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+	// for TESTING with "junit"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'junit:junit:4.13.2'
 
 	//Lombok Dependency
 	compileOnly 'org.projectlombok:lombok'
