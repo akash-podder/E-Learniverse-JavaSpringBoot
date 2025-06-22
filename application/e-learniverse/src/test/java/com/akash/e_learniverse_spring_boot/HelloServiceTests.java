@@ -9,6 +9,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.*;
 
+/**
+ * "@SpringBootTest" is used to Start the "Spring Boot Container" which will create the Beans for the "Test" Environment
+ */
+
 //@RunWith(SpringRunner.class) --> Not Needed
 @SpringBootTest
 public class HelloServiceTests {
@@ -23,6 +27,7 @@ public class HelloServiceTests {
     @Test
     public void testGreetWithName() {
         String result = helloService.greet("Ramos");
+
         assertEquals("Hola, Ramos!", result);
 
         assertTrue(helloService.greet("Ramos").equals("Hola, Ramos!"));

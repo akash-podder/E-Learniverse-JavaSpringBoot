@@ -5,4 +5,5 @@ include('modules:common')
 include('modules:config:jms-config') //sub-module for Pub-Sub
 
 //include application(main)
+// this is the Main "module" of the Project
 include('application:e-learniverse')

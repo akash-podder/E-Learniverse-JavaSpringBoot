@@ -103,7 +103,7 @@ public class MainViewController {
             return "redirect:/login";
         }
         catch (Exception ex){
-            // Redirect to a Error page
+            // Redirect to an Error page
             return "redirect:/";
         }
     }

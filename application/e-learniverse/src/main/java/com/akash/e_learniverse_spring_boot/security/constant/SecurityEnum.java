@@ -8,6 +8,7 @@ public class SecurityEnum {
         PLAYER("PLAYER");
 
         private String role;
+
         FootballPlayerRole(String role) {
             this.role = role;
         }
