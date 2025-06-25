@@ -14,10 +14,9 @@ import java.util.List;
 @Service
 public class FootballPlayerServiceImpl implements FootballPlayerService {
     private static final Logger logger = LogManager.getLogger(FootballPlayerServiceImpl.class);
-
-    private final FootballPlayerRepository footballPlayerRepository;
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    private final FootballPlayerRepository footballPlayerRepository;
 
     @Autowired
     public FootballPlayerServiceImpl(FootballPlayerRepository footballPlayerRepository) {

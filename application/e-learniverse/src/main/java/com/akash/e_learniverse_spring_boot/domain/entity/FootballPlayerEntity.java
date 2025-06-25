@@ -21,7 +21,7 @@ import javax.persistence.*;
         indexes = {@Index(name = "idx_email",  columnList="email", unique = true)})
 public class FootballPlayerEntity {
 
-    @Id //Sequence mane hocche, amader ID field Auto increment hobe... ei author_id_seq amra DBVear er Sequence eo pabo
+    @Id //Sequence mane hocche, amader ID field Auto increment hobe... ei author_id_seq amra "DBeaver" (Database er Built-In Sequence) er Sequence eo pabo
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "football_player_id_seq")
     private Long id;
 

@@ -7,6 +7,7 @@ import com.akash.integration.jmsconfig.JmsConstant;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,6 +16,7 @@ public class EmailConsumer {
 
     private final EmailService emailService;
 
+    @Autowired
     public EmailConsumer(EmailService emailService) {
         this.emailService = emailService;
     }

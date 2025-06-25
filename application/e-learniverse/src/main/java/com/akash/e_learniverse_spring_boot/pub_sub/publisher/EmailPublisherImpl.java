@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +15,7 @@ public class EmailPublisherImpl implements EmailPublisher {
     private static final Logger logger = LogManager.getLogger(EmailPublisherImpl.class);
     private final RabbitTemplate rabbitTemplate;
 
+    @Autowired
     public EmailPublisherImpl(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
     }
