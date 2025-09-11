@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -40,9 +41,25 @@ public class MainViewController {
         this.emailPublisher = emailPublisher;
     }
 
-
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(HttpServletRequest request, Model model) {
+        // 1. Custom header (like HTTP_X_BACKEND_PORT)
+        String backendPort = request.getHeader("X-Backend-Port");
+        if (backendPort == null) {
+            backendPort = "unknown";
+        }
+
+        // 2. Client port (port used by the browser/client)
+        int clientPort = request.getRemotePort();
+
+        // 3. Worker process ID (Spring Boot runs inside JVM, so we fetch PID)
+        long workerProcessId = ProcessHandle.current().pid();
+
+        // 4. Add attributes to model (like Django context)
+        model.addAttribute("backendPort", backendPort);
+        model.addAttribute("clientPort", clientPort);
+        model.addAttribute("workerProcessId", workerProcessId);
+
         List<FootballPlayerEntity> footballPlayerEntityList = footballPlayerService.getAllFootballPlayer();
         List<FootballClubEntity> footballClubEntityList = footballClubService.getAllFootballClub();
 
