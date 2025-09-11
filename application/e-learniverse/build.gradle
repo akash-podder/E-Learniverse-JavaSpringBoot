@@ -13,17 +13,17 @@ dependencies {
 	//Spring WEB Dependency
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
-	//Spring Data JPA Dependency
+	// Spring Data JPA Dependency
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-	//Spring JDBC Dependency
+	// Spring JDBC Dependency
 //	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 
 
-	//Thymeleaf Dependency
+	// Thymeleaf Dependency
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
-	//Spring Security Dependency
+	// Spring Security Dependency
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 //	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
 	testImplementation 'org.springframework.security:spring-security-test'
@@ -37,14 +37,14 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'junit:junit:4.13.2'
 
-	//Lombok Dependency
+	// Lombok Dependency
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
-	//Postgres Dependency
-	runtimeOnly 'org.postgresql:postgresql'
+	// Postgres Dependency
+	implementation 'org.postgresql:postgresql'
 
-	//Retrofit Dependency
+	// Retrofit Dependency
 	implementation 'com.squareup.retrofit2:retrofit:2.4.0'
 	implementation 'com.squareup.retrofit2:converter-jackson:2.4.0'
 	implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
@@ -53,7 +53,7 @@ dependencies {
 
 	implementation 'com.google.guava:guava:29.0-jre'
 
-	//Firebase FCM Dependency
+	// Firebase FCM Dependency
 	implementation 'com.google.firebase:firebase-admin:9.1.1'
 
 
