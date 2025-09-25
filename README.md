@@ -5,7 +5,8 @@ A Java Spring Boot Backend application for E-Learniverse. This is a Self-Learnin
 Please follow standard **Java Spring** installation guide.
 
 ### secret.properties
-First create a  **secret.properties** file in `src/main/resources` folder & give following key-value pairs.
+First create a  **secret.properties** file in `application/e-learniverse/src/main/resources/secret.properties` folder & give following key-value pairs.
+For the reference you can see **sample-secret.properties** file
 ```shell script
 # Postgres Database Secret Files
 database-url: jdbc:postgresql://localhost:5432/db_name
