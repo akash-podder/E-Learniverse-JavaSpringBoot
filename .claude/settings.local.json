@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./gradlew tasks:*)",
+      "Bash(./gradlew :application:e-learniverse:tasks:*)",
+      "Bash(./gradlew :application:e-learniverse:bootRun:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
