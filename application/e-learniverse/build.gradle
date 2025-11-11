@@ -67,4 +67,9 @@ dependencies {
 
 	// Spring Boot Devtools(Auto Restart ---> also intelliJ Advanced Settings go & enable "allow auto-make start...")
 	compileOnly 'org.springframework.boot:spring-boot-devtools'
+
+	//	"GraphQL" dependency for Spring Boot
+	implementation 'org.springframework.boot:spring-boot-starter-graphql'
+	testImplementation 'org.springframework.graphql:spring-graphql-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
