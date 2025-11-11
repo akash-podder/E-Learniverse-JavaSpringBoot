@@ -1,0 +1,18 @@
+# In your Spring for GraphQL application prepared earlier, add a new file "schema.graphqls" in Folder "src/main/resources/graphql"
+
+type Query {
+    bookById(id: ID): Book
+}
+
+type Book {
+    id: ID
+    name: String
+    pageCount: Int
+    author: Author
+}
+
+type Author {
+    id: ID
+    firstName: String
+    lastName: String
+}
