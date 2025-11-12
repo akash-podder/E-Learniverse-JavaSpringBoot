@@ -43,6 +43,9 @@ public class MySecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
+                // GraphQL endpoints - allow without authentication
+                .antMatchers("/graphql", "/graphiql/**", "/graphql/**", "/graphiql.html").permitAll()
+
                 //for Api Views
                 .antMatchers("/api/create-player").permitAll() //jate kore Player Create korte Authentication Nah lagge
                 .antMatchers("/api/**","/api/player/**").authenticated() //eikane jei Endpoint gula dibo sudhu sheigular Authentication Lagbe
