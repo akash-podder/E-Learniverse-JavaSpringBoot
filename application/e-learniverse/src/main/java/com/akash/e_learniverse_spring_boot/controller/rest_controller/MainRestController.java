@@ -5,7 +5,9 @@ import com.akash.e_learniverse_spring_boot.domain.dto.request_dto.SendEmailReque
 import com.akash.e_learniverse_spring_boot.pub_sub.publisher.EmailPublisher;
 import com.akash.e_learniverse_spring_boot.pub_sub.publisher.EmailPublisherImpl;
 import com.akash.e_learniverse_spring_boot.response.ApiResponseDto;
+import com.akash.e_learniverse_spring_boot.response.PlayerAggregateResponse;
 import com.akash.e_learniverse_spring_boot.service.football_player.FootballPlayerService;
+import com.akash.e_learniverse_spring_boot.service.football_player.PlayerAggregationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,13 @@ public class MainRestController {
     private static final Logger logger = LogManager.getLogger(MainRestController.class);
 
     private final FootballPlayerService footballPlayerService;
+    private final PlayerAggregationService playerAggregationService;
     private final EmailPublisher emailPublisher;
 
     @Autowired
-    public MainRestController(FootballPlayerService footballPlayerService, EmailPublisherImpl emailPublisher) {
+    public MainRestController(FootballPlayerService footballPlayerService, PlayerAggregationService playerAggregationService, EmailPublisherImpl emailPublisher) {
         this.footballPlayerService = footballPlayerService;
+        this.playerAggregationService = playerAggregationService;
         this.emailPublisher = emailPublisher;
     }
 
@@ -73,5 +77,35 @@ public class MainRestController {
         emailPublisher.publishEmailToQueue(emailRequestDto);
 
         return ResponseEntity.ok(new ApiResponseDto("Email Sent"));
+    }
+
+    //////////// Sync and Async DB Calls Comparison Endpoints ////////////
+
+    // To Test Further with delay you can use "Thread.sleep()" with 2 seconds to simulate the Behavior
+    @GetMapping("/players-aggregate/async-multithreading")
+    public PlayerAggregateResponse getPlayersAsyncMultiThreading() throws Exception {
+        // HTTP Request
+        //      │
+        //Controller
+        //      │
+        //Aggregation Service
+        //      │
+        //3 Async DB Calls (playerTaskExecutor)
+        // ├── getBarcelonaPlayers()
+        // ├── getMadridPlayers()
+        // └── getLiverpoolPlayers()
+        //      │
+        //CompletableFuture.allOf()
+        //      │
+        //Combine results
+        //      │
+        //Return JSON
+        return playerAggregationService.fetchPlayersAsyncMultiThreading();
+    }
+
+    // This API is just implemented to see Performance Comparison with "AsyncMultiThreading"
+    @GetMapping("/players-aggregate/sync")
+    public PlayerAggregateResponse getPlayersSync() throws Exception {
+        return playerAggregationService.fetchPlayersSync();
     }
 }
