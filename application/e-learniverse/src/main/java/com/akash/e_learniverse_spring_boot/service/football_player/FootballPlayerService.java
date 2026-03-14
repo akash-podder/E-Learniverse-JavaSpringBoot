@@ -13,4 +13,6 @@ public interface FootballPlayerService {
     List<FootballPlayerEntity> getAllFootballPlayer();
 
     FootballPlayerEntity getFootballPlayerByEmail(String email);
+
+    void deleteFootballPlayerByEmail(String email);
 }

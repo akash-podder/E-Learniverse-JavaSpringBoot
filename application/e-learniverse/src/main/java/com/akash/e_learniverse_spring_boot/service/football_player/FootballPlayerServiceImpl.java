@@ -45,4 +45,9 @@ public class FootballPlayerServiceImpl implements FootballPlayerService {
     public FootballPlayerEntity getFootballPlayerByEmail(String email) {
         return footballPlayerRepository.findByEmail(email);
     }
+
+    @Override
+    public void deleteFootballPlayerByEmail(String email) {
+        footballPlayerRepository.deleteByEmail(email);
+    }
 }

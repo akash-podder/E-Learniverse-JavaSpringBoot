@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface FootballPlayerRepository extends JpaRepository<FootballPlayerEntity, Long> {
     FootballPlayerEntity findByName(String playerName);
     FootballPlayerEntity findByEmail(String email);
+    void deleteByEmail(String email);
 }
