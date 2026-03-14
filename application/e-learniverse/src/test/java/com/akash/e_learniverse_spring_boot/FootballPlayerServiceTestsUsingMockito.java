@@ -1,6 +1,8 @@
 package com.akash.e_learniverse_spring_boot;
 
+import com.akash.e_learniverse_spring_boot.domain.dto.FootballPlayerDto;
 import com.akash.e_learniverse_spring_boot.domain.entity.FootballPlayerEntity;
+import com.akash.e_learniverse_spring_boot.mapper.CustomObjectMapper;
 import com.akash.e_learniverse_spring_boot.repository.FootballPlayerRepository;
 import com.akash.e_learniverse_spring_boot.security.constant.SecurityEnum;
 import com.akash.e_learniverse_spring_boot.service.football_player.FootballPlayerServiceImpl;
@@ -37,11 +39,17 @@ public class FootballPlayerServiceTestsUsingMockito {
     @Mock
     private FootballPlayerRepository footballPlayerRepository;
 
-    // "footballPlayerService" depends on "footballPlayerRepository"
-    // To AUTOMATICALLY insert/Autorwire "MOCK" instance of "footballPlayerRepository" inside "footballPlayerService" we use @InjectMocks
-    // @InjectMocks --> it inserts all the Necessary "Dependency Injection's MOCK Object such as footballPlayerRepository" into "footballPlayerService"
+    // "footballPlayerService" depends on "footballPlayerRepository" and "footballPlayerMapper"
+    // To AUTOMATICALLY insert/Autorwire "MOCK" instance of "footballPlayerRepository" and "footballPlayerMapper" inside "footballPlayerService" we use @InjectMocks
+    // @InjectMocks --> it inserts all the Necessary "Dependency Injection's MOCK Object such as footballPlayerRepository and footballPlayerMapper" into "footballPlayerService"
     @InjectMocks
     private FootballPlayerServiceImpl footballPlayerService;
+
+    /**
+     * Mock the CustomObjectMapper to avoid actual mapping logic during unit tests
+     */
+    @Mock
+    private CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper;
 
     @Before
     public void setUp() {
@@ -62,18 +70,26 @@ public class FootballPlayerServiceTestsUsingMockito {
 
     @Test
     public void getFootballPlayerByNameTest() {
-        // Mock repository response
-        // this means, while calling "footballPlayerService.getFootballPlayerByName()" and we encounter any line that calls "footballPlayerRepository.findByName()", then Return this DUMMY Response
-        when(footballPlayerRepository.findByName(anyString()))
-                .thenReturn(new FootballPlayerEntity(
-                        1L, "ramos", "ramos@gmail.com", "1234", 33, 4, SecurityEnum.FootballPlayerRole.CAPTAIN));
+        // Arrange: Create entity and DTO
+        FootballPlayerEntity playerEntity = new FootballPlayerEntity(
+                1L, "ramos", "ramos@gmail.com", "1234", 33, 4, SecurityEnum.FootballPlayerRole.CAPTAIN);
 
-        // Call service
-        FootballPlayerEntity result = footballPlayerService.getFootballPlayerByName("ramos");
+        FootballPlayerDto playerDto = new FootballPlayerDto(
+                1L, "4Ramos3", "ramos@gmail.com", "1234", 33, 4, SecurityEnum.FootballPlayerRole.CAPTAIN);
+
+        // Mock repository response
+        when(footballPlayerRepository.findByName("ramos")).thenReturn(playerEntity);
+
+        // Mock mapper response
+        when(footballPlayerMapper.mapTo(playerEntity)).thenReturn(playerDto);
+
+        // Act: Call service
+        FootballPlayerDto result = footballPlayerService.getFootballPlayerByName("ramos");
 
         // Assert
         assertNotNull(result);
         assertEquals("ramos", result.getName());
+        assertEquals("ramos@gmail.com", result.getEmail());
     }
 
 
@@ -112,10 +128,21 @@ public class FootballPlayerServiceTestsUsingMockito {
     // Unit tests for testing "Java Exceptions"
     @Test
     public void savePlayerShouldThrowExceptionForInvalidPlayerName() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        FootballPlayerEntity invalidPlayeNameWithNumber = new FootballPlayerEntity(
+
+        // Arrange: Create a DTO with invalid player name
+        FootballPlayerDto invalidPlayerDto = new FootballPlayerDto(
                 1L, "4Ramos3", "ramos@gmail.com", "1234", 33, 4, SecurityEnum.FootballPlayerRole.CAPTAIN);
 
-        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> footballPlayerService.savePlayer(invalidPlayeNameWithNumber));
+        // Create corresponding entity with invalid name
+        FootballPlayerEntity invalidPlayerEntity = new FootballPlayerEntity(
+                1L, "4Ramos3", "ramos@gmail.com", "1234", 33, 4, SecurityEnum.FootballPlayerRole.CAPTAIN);
+
+        // Mock the mapper to convert DTO to Entity
+        when(footballPlayerMapper.mapFrom(invalidPlayerDto)).thenReturn(invalidPlayerEntity);
+
+        // Act & Assert
+        RuntimeException runtimeException = assertThrows(RuntimeException.class,
+                () -> footballPlayerService.savePlayer(invalidPlayerDto));
 
         assertEquals("Player name is invalid", runtimeException.getMessage());
     }

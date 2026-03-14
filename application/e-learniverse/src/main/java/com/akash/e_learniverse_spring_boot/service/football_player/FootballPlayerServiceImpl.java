@@ -1,6 +1,8 @@
 package com.akash.e_learniverse_spring_boot.service.football_player;
 
+import com.akash.e_learniverse_spring_boot.domain.dto.FootballPlayerDto;
 import com.akash.e_learniverse_spring_boot.domain.entity.FootballPlayerEntity;
+import com.akash.e_learniverse_spring_boot.mapper.CustomObjectMapper;
 import com.akash.e_learniverse_spring_boot.repository.FootballPlayerRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FootballPlayerServiceImpl implements FootballPlayerService {
@@ -17,19 +20,24 @@ public class FootballPlayerServiceImpl implements FootballPlayerService {
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     private final FootballPlayerRepository footballPlayerRepository;
+    private final CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper;
 
     @Autowired
-    public FootballPlayerServiceImpl(FootballPlayerRepository footballPlayerRepository) {
+    public FootballPlayerServiceImpl(FootballPlayerRepository footballPlayerRepository, CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper) {
         this.footballPlayerRepository = footballPlayerRepository;
+        this.footballPlayerMapper = footballPlayerMapper;
     }
 
     @Override
-    public FootballPlayerEntity savePlayer(FootballPlayerEntity footballPlayer) {
-        if(validatePlayerName(footballPlayer.getName())){
-            //TODO: we Must ENCODE Password before Saving it to Database
-            footballPlayer.setPassword(passwordEncoder.encode(footballPlayer.getPassword()));
+    public FootballPlayerDto savePlayer(FootballPlayerDto footballPlayerDto) {
+        FootballPlayerEntity playerEntity = footballPlayerMapper.mapFrom(footballPlayerDto);
 
-            return footballPlayerRepository.save(footballPlayer);
+        if(validatePlayerName(playerEntity.getName())){
+            //TODO: we Must ENCODE Password before Saving it to Database
+            playerEntity.setPassword(passwordEncoder.encode(playerEntity.getPassword()));
+
+            FootballPlayerEntity savedPlayer = footballPlayerRepository.save(playerEntity);
+            return footballPlayerMapper.mapTo(savedPlayer);
         }
         else{
             throw new RuntimeException("Player name is invalid");
@@ -37,18 +45,22 @@ public class FootballPlayerServiceImpl implements FootballPlayerService {
     }
 
     @Override
-    public FootballPlayerEntity getFootballPlayerByName(String playerName) {
-        return footballPlayerRepository.findByName(playerName);
+    public FootballPlayerDto getFootballPlayerByName(String playerName) {
+        FootballPlayerEntity playerEntity = footballPlayerRepository.findByName(playerName);
+        return playerEntity != null ? footballPlayerMapper.mapTo(playerEntity) : null;
     }
 
     @Override
-    public List<FootballPlayerEntity> getAllFootballPlayer() {
-        return footballPlayerRepository.findAll();
+    public List<FootballPlayerDto> getAllFootballPlayer() {
+        return footballPlayerRepository.findAll().stream()
+                .map(footballPlayerMapper::mapTo)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public FootballPlayerEntity getFootballPlayerByEmail(String email) {
-        return footballPlayerRepository.findByEmail(email);
+    public FootballPlayerDto getFootballPlayerByEmail(String email) {
+        FootballPlayerEntity playerEntity = footballPlayerRepository.findByEmail(email);
+        return playerEntity != null ? footballPlayerMapper.mapTo(playerEntity) : null;
     }
 
     @Override

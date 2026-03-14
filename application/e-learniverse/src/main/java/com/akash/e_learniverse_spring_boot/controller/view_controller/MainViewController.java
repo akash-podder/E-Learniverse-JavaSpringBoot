@@ -3,9 +3,6 @@ package com.akash.e_learniverse_spring_boot.controller.view_controller;
 import com.akash.e_learniverse_spring_boot.domain.dto.FootballClubDto;
 import com.akash.e_learniverse_spring_boot.domain.dto.FootballPlayerDto;
 import com.akash.e_learniverse_spring_boot.domain.dto.request_dto.SendEmailRequestDto;
-import com.akash.e_learniverse_spring_boot.domain.entity.FootballClubEntity;
-import com.akash.e_learniverse_spring_boot.domain.entity.FootballPlayerEntity;
-import com.akash.e_learniverse_spring_boot.mapper.CustomObjectMapper;
 import com.akash.e_learniverse_spring_boot.pub_sub.publisher.EmailPublisher;
 import com.akash.e_learniverse_spring_boot.service.football_club.FootballClubService;
 import com.akash.e_learniverse_spring_boot.service.football_player.FootballPlayerService;
@@ -25,17 +22,13 @@ import java.util.List;
 public class MainViewController {
     private static final Logger logger = LogManager.getLogger(MainViewController.class);
 
-    private final CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper;
-    private final CustomObjectMapper<FootballClubEntity, FootballClubDto> footballClubMapper;
     private final FootballPlayerService footballPlayerService;
     private final FootballClubService footballClubService;
     private final EmailPublisher emailPublisher;
 
 
     @Autowired
-    public MainViewController(CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper, CustomObjectMapper<FootballClubEntity, FootballClubDto> footballClubMapper, FootballPlayerService footballPlayerService, FootballClubService footballClubService, EmailPublisher emailPublisher) {
-        this.footballPlayerMapper = footballPlayerMapper;
-        this.footballClubMapper = footballClubMapper;
+    public MainViewController(FootballPlayerService footballPlayerService, FootballClubService footballClubService, EmailPublisher emailPublisher) {
         this.footballPlayerService = footballPlayerService;
         this.footballClubService = footballClubService;
         this.emailPublisher = emailPublisher;
@@ -60,11 +53,11 @@ public class MainViewController {
         model.addAttribute("clientPort", clientPort);
         model.addAttribute("workerProcessId", workerProcessId);
 
-        List<FootballPlayerEntity> footballPlayerEntityList = footballPlayerService.getAllFootballPlayer();
-        List<FootballClubEntity> footballClubEntityList = footballClubService.getAllFootballClub();
+        List<FootballPlayerDto> footballPlayerDtoList = footballPlayerService.getAllFootballPlayer();
+        List<FootballClubDto> footballClubDtoList = footballClubService.getAllFootballClub();
 
-        model.addAttribute("football_player_all", footballPlayerEntityList);
-        model.addAttribute("football_club_all", footballClubEntityList);
+        model.addAttribute("football_player_all", footballPlayerDtoList);
+        model.addAttribute("football_club_all", footballClubDtoList);
         model.addAttribute("email_request_obj", new SendEmailRequestDto());
 
         return "layout/index";
@@ -86,10 +79,8 @@ public class MainViewController {
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("player") FootballPlayerDto footballPlayerDto) {
         // Logic to save the player to the database or perform any necessary actions
-        FootballPlayerEntity playerEntity = footballPlayerMapper.mapFrom(footballPlayerDto);
-
         try{
-            FootballPlayerEntity newSavedFootballPlayer = footballPlayerService.savePlayer(playerEntity);
+            FootballPlayerDto newSavedFootballPlayer = footballPlayerService.savePlayer(footballPlayerDto);
 
             // Redirect to a success page or another appropriate page
             return "redirect:/login";
@@ -111,10 +102,8 @@ public class MainViewController {
     @PostMapping("/create-player")
     public String createPlayer(@ModelAttribute("player") FootballPlayerDto footballPlayerDto) {
         // Logic to save the player to the database or perform any necessary actions
-        FootballPlayerEntity playerEntity = footballPlayerMapper.mapFrom(footballPlayerDto);
-
         try{
-            FootballPlayerEntity newSavedFootballPlayer = footballPlayerService.savePlayer(playerEntity);
+            FootballPlayerDto newSavedFootballPlayer = footballPlayerService.savePlayer(footballPlayerDto);
 
             // Redirect to a success page or another appropriate page
             return "redirect:/login";
@@ -135,10 +124,8 @@ public class MainViewController {
     @PostMapping("/create-club")
     public String createClub(@ModelAttribute("football_club") FootballClubDto footballClubDto) {
         // Logic to save the player to the database or perform any necessary actions
-        FootballClubEntity clubEntity = footballClubMapper.mapFrom(footballClubDto);
-
         try{
-            FootballClubEntity newFootballClub = footballClubService.createFootballClub(clubEntity);
+            FootballClubDto newFootballClub = footballClubService.createFootballClub(footballClubDto);
 
             // Redirect to a success page or another appropriate page
             return "redirect:/login";

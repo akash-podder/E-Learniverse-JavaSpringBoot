@@ -1,18 +1,18 @@
 package com.akash.e_learniverse_spring_boot.service.football_player;
 
-import com.akash.e_learniverse_spring_boot.domain.entity.FootballPlayerEntity;
+import com.akash.e_learniverse_spring_boot.domain.dto.FootballPlayerDto;
 
 import java.util.List;
 
 public interface FootballPlayerService {
 
-    FootballPlayerEntity savePlayer(FootballPlayerEntity footballPlayer);
+    FootballPlayerDto savePlayer(FootballPlayerDto footballPlayerDto);
 
-    FootballPlayerEntity getFootballPlayerByName(String playerName);
+    FootballPlayerDto getFootballPlayerByName(String playerName);
 
-    List<FootballPlayerEntity> getAllFootballPlayer();
+    List<FootballPlayerDto> getAllFootballPlayer();
 
-    FootballPlayerEntity getFootballPlayerByEmail(String email);
+    FootballPlayerDto getFootballPlayerByEmail(String email);
 
     void deleteFootballPlayerByEmail(String email);
 }

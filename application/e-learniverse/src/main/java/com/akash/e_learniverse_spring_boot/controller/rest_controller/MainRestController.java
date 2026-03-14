@@ -2,8 +2,6 @@ package com.akash.e_learniverse_spring_boot.controller.rest_controller;
 
 import com.akash.e_learniverse_spring_boot.domain.dto.FootballPlayerDto;
 import com.akash.e_learniverse_spring_boot.domain.dto.request_dto.SendEmailRequestDto;
-import com.akash.e_learniverse_spring_boot.domain.entity.FootballPlayerEntity;
-import com.akash.e_learniverse_spring_boot.mapper.CustomObjectMapper;
 import com.akash.e_learniverse_spring_boot.pub_sub.publisher.EmailPublisher;
 import com.akash.e_learniverse_spring_boot.pub_sub.publisher.EmailPublisherImpl;
 import com.akash.e_learniverse_spring_boot.response.ApiResponseDto;
@@ -23,14 +21,11 @@ import org.springframework.web.bind.annotation.*;
 public class MainRestController {
     private static final Logger logger = LogManager.getLogger(MainRestController.class);
 
-    private final CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper;
-
     private final FootballPlayerService footballPlayerService;
     private final EmailPublisher emailPublisher;
 
     @Autowired
-    public MainRestController(CustomObjectMapper<FootballPlayerEntity, FootballPlayerDto> footballPlayerMapper, FootballPlayerService footballPlayerService, EmailPublisherImpl emailPublisher) {
-        this.footballPlayerMapper = footballPlayerMapper;
+    public MainRestController(FootballPlayerService footballPlayerService, EmailPublisherImpl emailPublisher) {
         this.footballPlayerService = footballPlayerService;
         this.emailPublisher = emailPublisher;
     }
@@ -46,13 +41,10 @@ public class MainRestController {
     public ResponseEntity<?> createPlayer(@RequestBody FootballPlayerDto footballPlayerDto) {
         logger.info("Received: " + footballPlayerDto.toString());
 
-        FootballPlayerEntity playerEntity = footballPlayerMapper.mapFrom(footballPlayerDto);
-
         try{
-            FootballPlayerEntity newSavedFootballPlayer = footballPlayerService.savePlayer(playerEntity);
+            FootballPlayerDto newSavedFootballPlayer = footballPlayerService.savePlayer(footballPlayerDto);
 
-//        return ResponseEntity.ok(new ApiResponseDto("New Player Created: " + newSavedFootballPlayer.toString()));
-            return ResponseEntity.ok(footballPlayerMapper.mapTo(newSavedFootballPlayer));
+            return ResponseEntity.ok(newSavedFootballPlayer);
         }
         catch (Exception ex){
             return ResponseEntity.ok(new ApiResponseDto(ex.toString()));
@@ -65,10 +57,9 @@ public class MainRestController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         //as during saving we used "Username = Email" of the FootballPlayer
-        FootballPlayerEntity footballPlayer = footballPlayerService.getFootballPlayerByEmail(authentication.getName());
+        FootballPlayerDto footballPlayer = footballPlayerService.getFootballPlayerByEmail(authentication.getName());
 
         if (footballPlayer != null) {
-//            return ResponseEntity.ok(new ApiResponseDto("My Player Profile: " + footballPlayer.toString()));
             return ResponseEntity.ok(footballPlayer);
         }
         else {
