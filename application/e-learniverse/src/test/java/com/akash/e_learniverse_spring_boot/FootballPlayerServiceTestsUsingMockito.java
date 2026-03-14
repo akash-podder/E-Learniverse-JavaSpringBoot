@@ -75,7 +75,7 @@ public class FootballPlayerServiceTestsUsingMockito {
                 1L, "ramos", "ramos@gmail.com", "1234", 33, 4, SecurityEnum.FootballPlayerRole.CAPTAIN);
 
         FootballPlayerDto playerDto = new FootballPlayerDto(
-                1L, "4Ramos3", "ramos@gmail.com", "1234", 33, 4, SecurityEnum.FootballPlayerRole.CAPTAIN);
+                1L, "ramos", "ramos@gmail.com", "1234", 33, 4, SecurityEnum.FootballPlayerRole.CAPTAIN);
 
         // Mock repository response
         when(footballPlayerRepository.findByName("ramos")).thenReturn(playerEntity);
