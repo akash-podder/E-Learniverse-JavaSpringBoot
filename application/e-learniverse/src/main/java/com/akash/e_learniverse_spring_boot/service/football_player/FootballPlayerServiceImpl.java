@@ -25,10 +25,15 @@ public class FootballPlayerServiceImpl implements FootballPlayerService {
 
     @Override
     public FootballPlayerEntity savePlayer(FootballPlayerEntity footballPlayer) {
-        //TODO: we Must ENCODE Password before Saving it to Database
-        footballPlayer.setPassword(passwordEncoder.encode(footballPlayer.getPassword()));
+        if(validatePlayerName(footballPlayer.getName())){
+            //TODO: we Must ENCODE Password before Saving it to Database
+            footballPlayer.setPassword(passwordEncoder.encode(footballPlayer.getPassword()));
 
-        return footballPlayerRepository.save(footballPlayer);
+            return footballPlayerRepository.save(footballPlayer);
+        }
+        else{
+            throw new RuntimeException("Player name is invalid");
+        }
     }
 
     @Override
@@ -49,5 +54,10 @@ public class FootballPlayerServiceImpl implements FootballPlayerService {
     @Override
     public void deleteFootballPlayerByEmail(String email) {
         footballPlayerRepository.deleteByEmail(email);
+    }
+
+    // added this "private" Method for Example to test "private" Method in "JUnit and Mockito"
+    private boolean validatePlayerName(String playerName) {
+        return playerName!=null && !playerName.isEmpty() && playerName.matches("[a-zA-Z]+");
     }
 }

@@ -19,6 +19,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 
 /**
  * So that this class can create mock we have to mark this class with
@@ -84,5 +87,21 @@ public class FootballPlayerServiceTestsUsingMockito {
         // footballPlayerService.deleteFootballPlayerByEmail() ---> calls --> footballPlayerRepository.deleteByEmail() Method;
         footballPlayerService.deleteFootballPlayerByEmail("ramos@gmail.com");
         Mockito.verify(footballPlayerRepository, Mockito.times(1)).deleteByEmail("ramos@gmail.com");
+    }
+
+    @Test
+    public void testPrivateMethod_validateFootballPlayerName() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        // to Test Private method we use "Java Reflections" API
+        // we first get the Private method
+        Method validatePlayerNameMethod = FootballPlayerServiceImpl.class.getDeclaredMethod("validatePlayerName", String.class);
+
+        // and then set the "private" Method's "Access" to "true"... So that we can run variable
+        validatePlayerNameMethod.setAccessible(true);
+
+        Boolean isPlayerNameValid = (Boolean) validatePlayerNameMethod.invoke(footballPlayerService, "Ramos");
+        assertTrue(isPlayerNameValid);
+
+        Boolean notValid = (Boolean) validatePlayerNameMethod.invoke(footballPlayerService, "123");
+        assertFalse(notValid);
     }
 }
