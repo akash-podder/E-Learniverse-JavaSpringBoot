@@ -8,6 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
+@EnableAsync
 @ComponentScan(basePackages = { //this means --> SpringBoot will Scan all the Classes under "com.akash." Package
 		"com.akash.*",
 })
