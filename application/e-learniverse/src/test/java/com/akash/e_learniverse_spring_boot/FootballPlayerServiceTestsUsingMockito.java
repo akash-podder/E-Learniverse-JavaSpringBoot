@@ -76,6 +76,8 @@ public class FootballPlayerServiceTestsUsingMockito {
         assertEquals("ramos", result.getName());
     }
 
+
+    // Unit tests for testing "void" return using "doNothing()" and "Mockito.verify()"
     @Test
     public void deleteFootballPlayerByEmailSuccessfullyTest() {
         // this means, while calling "footballPlayerService.deleteFootballPlayerByEmail()" and we encounter any line that calls "footballPlayerRepository.deleteByEmail()"
@@ -89,6 +91,8 @@ public class FootballPlayerServiceTestsUsingMockito {
         Mockito.verify(footballPlayerRepository, Mockito.times(1)).deleteByEmail("ramos@gmail.com");
     }
 
+
+    // Unit tests for testing "private Method" using "Java Reflections" API
     @Test
     public void testPrivateMethod_validateFootballPlayerName() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         // to Test Private method we use "Java Reflections" API
@@ -103,5 +107,16 @@ public class FootballPlayerServiceTestsUsingMockito {
 
         Boolean notValid = (Boolean) validatePlayerNameMethod.invoke(footballPlayerService, "123");
         assertFalse(notValid);
+    }
+
+    // Unit tests for testing "Java Exceptions"
+    @Test
+    public void savePlayerShouldThrowExceptionForInvalidPlayerName() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        FootballPlayerEntity invalidPlayeNameWithNumber = new FootballPlayerEntity(
+                1L, "4Ramos3", "ramos@gmail.com", "1234", 33, 4, SecurityEnum.FootballPlayerRole.CAPTAIN);
+
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> footballPlayerService.savePlayer(invalidPlayeNameWithNumber));
+
+        assertEquals("Player name is invalid", runtimeException.getMessage());
     }
 }
